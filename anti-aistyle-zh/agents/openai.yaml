@@ -1,0 +1,4 @@
+interface:
+  display_name: "中文去 AI 味"
+  short_description: "中文去 AI 味，默认只需目标文本"
+  default_prompt: "Use $anti-aistyle-zh to reduce AI-style traces in Chinese text. Return the final rewritten Chinese content first; keep diagnosis, manifest, audit, and receipt internal unless the user asks or the task is validation, audit, or regression. Internally choose the dominant layer; for longform, fiction, outlines, and strong genres, handle structure and genre boundaries before sentence polish. Preserve meaning, facts, voice, object/audience sense, and genre. Judge density against the source and same-genre human norms. Do not just replace words, over-compress, over-cardify, add unsupported details, or chase detector scores. Default to balanced; escalate only for confirmed structure-level hard fail or longform restructuring."
