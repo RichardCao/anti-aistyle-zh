@@ -1,0 +1,68 @@
+{
+  "version": "2026-06-16",
+  "suite_name": "anti-aistyle-zh-technical-method-regression",
+  "default_call_policy": {
+    "only_required_input": "target_text",
+    "optional_controls": [
+      "voice_sample",
+      "rewrite_intensity",
+      "target_reading_feel",
+      "output_mode"
+    ]
+  },
+  "cases": [
+    {
+      "id": "TMA01_codex_internal_article",
+      "category": "technical_method_article_prompt_preservation",
+      "groups": ["core_smoke", "technical_method", "longform"],
+      "text_type": "technical_method_article",
+      "call_mode": "default_only",
+      "risk_tags": ["技术方法文", "prompt示例", "功能词二扫", "正向约束"],
+      "input": "这篇内部分享想说明 Codex 在量化研发里可以怎么用。更好的做法是先让 Codex 只读检查当前目录，这样问，输出会从局部代码建议变成流程梳理。需要说明的是，plot_order_diff() 的调用链在 apus_trade/index.py 里，最后要靠 python3 -m unittest 验证。\n\n```text\n请不要修改生产代码和 bak 目录。\n请不要只给结论，请先列出证据，再说明哪些文件可以改。\n哪些目录不能动？哪些输出文件名或路径需要沿用？\n```\n\n如果把线上 DAG 翻译成离线可复现流程，就可以把经验变成文档。这个步骤很关键，也很容易被忽略，因为很多问题可能不是代码本身，而是任务、证据、验证和流程没有被整理清楚。最后，debug_report/ 里应该留下报告，说明这类问题后续怎么排查。",
+      "assertions": {
+        "remove_patterns": ["更好的做法是", "这样问", "需要说明的是", "把线上 DAG 翻译成", "可以把经验变成文档", "很关键", "很容易", "最后，"],
+        "preserve_keywords": ["Codex", "plot_order_diff()", "apus_trade/index.py", "python3 -m unittest", "debug_report/", "任务", "证据", "验证", "流程"],
+        "require_any_patterns": ["保持生产代码", "生产代码只读", "bak 目录只读", "先列出证据"],
+        "max_total_pattern_groups": [
+          {
+            "label": "technical_function_words",
+            "patterns": ["可以", "需要", "应该", "可能", "很", "更", "其实", "这样", "直接", "最后", "说明", "把", "变成"],
+            "max_total": 8
+          }
+        ],
+        "min_char_ratio": 0.55,
+        "max_added_details": 1
+      }
+    },
+    {
+      "id": "TMA02_named_word_second_pass",
+      "category": "technical_method_named_word_audit",
+      "groups": ["core_smoke", "technical_method", "user_followup"],
+      "text_type": "technical_method_article",
+      "call_mode": "default_only",
+      "risk_tags": ["点名词强审", "单字不", "否定约束", "二改"],
+      "input": "上一版已经自然一些，但“不”的存在感还是太强。比如这段：不要直接让 Codex 改代码，不要只看 diff，不要把没有验证的判断写进结论。不是说这些限制不重要，而是它们不应该只是作为禁止清单出现。prompt 里仍然要保留边界：生产代码不能动，debug_report/ 不能改名，python3 -m unittest 不能省。",
+      "assertions": {
+        "remove_patterns": ["不是说这些限制不重要，而是", "不应该只是作为禁止清单出现"],
+        "preserve_keywords": ["Codex", "diff", "prompt", "生产代码", "debug_report/", "python3 -m unittest"],
+        "require_any_patterns": ["保持代码原样", "生产代码只读", "先看 diff", "验证后再写结论"],
+        "nonincreasing_pattern_groups": [
+          {
+            "label": "named_bu",
+            "patterns": ["不", "不要", "不能", "不是", "不应该"],
+            "max_total": 5
+          }
+        ],
+        "max_total_pattern_groups": [
+          {
+            "label": "negative_parallel",
+            "patterns": ["不是", "而是", "不只是", "更是", "问题不在", "而在"],
+            "max_total": 1
+          }
+        ],
+        "min_char_ratio": 0.5,
+        "max_added_details": 1
+      }
+    }
+  ]
+}

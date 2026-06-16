@@ -1,6 +1,6 @@
 # anti-aistyle-zh
 
-面向中文写作场景的去 AI 味 skill 仓库。当前核心产物是 [anti-aistyle-zh](./anti-aistyle-zh)：一个用于短文、公众号文章、评论、随笔、小说正文、长篇原稿、总纲、卷规划和章节规划的统一入口 Codex skill。
+面向中文写作场景的去 AI 味 skill 仓库。当前核心产物是 [anti-aistyle-zh](./anti-aistyle-zh)：一个用于短文、公众号文章、评论、随笔、技术方法文、内部经验分享稿、小说正文、长篇原稿、总纲、卷规划和章节规划的统一入口 Codex skill。
 
 项目目标不是“骗过检测器”，也不是把文本改得更随机、更口语或更碎。目标是在保留原意、事实、体裁、声纹和任务边界的前提下，压掉解释腔、总结腔、汇报腔、规划感、模板化推进和过度成熟的统一人格，让中文成稿更像自然写出来的文本。
 
@@ -10,6 +10,7 @@
 - 场景化默认强度：创作、公众号、评论、随笔、小说、提纲默认 `偏强`；通知、FAQ、客服口径、口播、社媒脚本默认 `平衡`；政策、法律、医疗、技术、学术、法规、新闻事实说明默认 `保守`。
 - 内部执行链：`场景判定 -> 强度映射 -> 诊断 -> 初改 -> 残留簇二扫 -> 必要二改 -> 体裁 / 事实校验 -> 最终成稿`。
 - 二层残留热点：新增 [residual_hotlist.md](./anti-aistyle-zh/references/residual_hotlist.md)，专门处理第一轮去味后常残留的 `不是...而是...`、`往往...真正...`、工程复盘腔、小标题排比和结尾升华。
+- 技术方法文专项：新增 [technical_method_article_rules.md](./anti-aistyle-zh/references/technical_method_article_rules.md)，处理内部工程分享稿里的词频二扫、点名词强审、prompt / checklist 保真和正向约束改写。
 - 回归覆盖：新增历史追改 suite、长文未知题材样本和短规划配额样本。
 - 检测器边界：外部检测或风险观察只作为回归辅助，不作为最终质量目标。
 
@@ -62,6 +63,7 @@ ln -sfn "$PWD/anti-aistyle-zh" "${CODEX_HOME:-$HOME/.codex}/skills/anti-aistyle-
 - [anti-aistyle-zh/SKILL.md](./anti-aistyle-zh/SKILL.md)：主合同、默认行为、决策树、输出边界。
 - [references/control_modes.md](./anti-aistyle-zh/references/control_modes.md)：控制项、场景化强度、`voice_sample` 声纹锚点。
 - [references/residual_hotlist.md](./anti-aistyle-zh/references/residual_hotlist.md)：二层残留热点清单。
+- [references/technical_method_article_rules.md](./anti-aistyle-zh/references/technical_method_article_rules.md)：技术方法文、内部分享稿、prompt 示例和点名词强审规则。
 - [references/audit_checklist.md](./anti-aistyle-zh/references/audit_checklist.md)：改后审计和强制二改阈值。
 - [references/rewrite_principles.md](./anti-aistyle-zh/references/rewrite_principles.md)：通用改写原则和多 pass。
 - [references/longform_validation_rules.md](./anti-aistyle-zh/references/longform_validation_rules.md)：长文、强体裁和压缩回潮。
@@ -104,6 +106,7 @@ python3 anti-aistyle-zh/scripts/render_regression_suite.py --lint-fixtures
 python3 anti-aistyle-zh/scripts/render_regression_suite.py --suite anti-aistyle-zh-local-regression --group core_smoke
 python3 anti-aistyle-zh/scripts/render_regression_suite.py --suite anti-aistyle-zh-focused-regression --group focused_residuals
 python3 anti-aistyle-zh/scripts/render_regression_suite.py --suite anti-aistyle-zh-user-followup-regression --group core_smoke
+python3 anti-aistyle-zh/scripts/render_regression_suite.py --suite anti-aistyle-zh-technical-method-regression --group core_smoke
 ```
 
 检查真实输出批次：

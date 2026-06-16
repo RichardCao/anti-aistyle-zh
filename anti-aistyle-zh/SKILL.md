@@ -1,6 +1,6 @@
 ---
 name: anti-aistyle-zh
-description: 中文优先的去 AI 味改写 skill。Use when the user asks to reduce AI traces, ChatGPT tone, 模型腔, 去 AI 味, AI 味重, 太像 AI 写的, 减少机器生成痕迹, 解释腔, 总结腔, 汇报腔, 课件腔, 翻译腔, or over-smooth/template-like Chinese writing in 短文, 文章, 评论, 随笔, 小说, 长文, 提纲, 总纲, 卷表, or 章节规划. Rewrites toward natural Chinese while preserving meaning, voice, genre, and factual boundaries; audits residual AI-flavored structure. Do not trigger only for requests to be more formal, more marketing-oriented, or more bureaucratic.
+description: 中文优先的去 AI 味改写 skill。Use when the user asks to reduce AI traces, ChatGPT tone, 模型腔, 去 AI 味, AI 味重, 太像 AI 写的, 减少机器生成痕迹, 解释腔, 总结腔, 汇报腔, 课件腔, 翻译腔, or over-smooth/template-like Chinese writing in 短文, 文章, 评论, 随笔, 技术方法文, 内部经验分享稿, 小说, 长文, 提纲, 总纲, 卷表, or 章节规划. Also use when the user points out repeated Chinese words or residual phrases after a rewrite, such as “不是/不/可以/把/很/可能 还很多”. Rewrites toward natural Chinese while preserving meaning, voice, genre, technical artifacts, and factual boundaries; audits residual AI-flavored structure. Do not trigger only for requests to be more formal, more marketing-oriented, or more bureaucratic.
 ---
 
 # 中文去 AI 味
@@ -33,7 +33,7 @@ description: 中文优先的去 AI 味改写 skill。Use when the user asks to r
 1. 先判层，再改写；上层没定案时，下层只能举证，不能抢改。
 2. 先改姿态和结构，再改句子和词。
 3. 所有频率判断先和原文比，再和同体裁、同长度、同运行方式的真人常态比。
-4. 不做机械禁词；黑词和高频词只能举证，不能主导判断。
+4. 不做机械禁词；黑词和高频词只能举证，不能主导判断；用户点名某词仍很多时，进入点名词强审，但仍先分功能再改。
 5. 不为去味改掉原意、立场、叙述重点或角色口吻，也不把“更口语”“更乱一点”误当成“更自然”。
 6. 不把地域、阶层、社群、职业、代际差异洗成统一标准语；原文有声纹时先保声纹。
 7. 正式、规范、克制、结构清楚本身不是 AI 味；只有当它们承担重复解释、统一人格、模板推进或过度收束时才处理。
@@ -51,8 +51,9 @@ description: 中文优先的去 AI 味改写 skill。Use when the user asks to r
 2. 多份纯规划文件一起给：先做 `规划包对表`，定 authority file、冲突字段、recurring system 和 per-volume quota。
 3. 提纲类文件和正文同时存在：先做 `提纲-正文偏差诊断`，再决定改哪一边。
 4. 只有整部长篇原文：先抽 `影子结构`，再回写正文。
-5. 只是局部摘录、单章或短段：可直接从较低层开始；若一眼能看见标准主导路线，内部先形成一句 `主导路线 / 功能链`；只有用户要求诊断、验证、审计、回归或分层输出时才外显。
-6. 对长文、小说、提纲输入，默认先判结构层，再决定是否进入句级。
+5. 技术方法文 / 内部经验分享稿含 prompt、checklist、命令、路径、函数名或日志时：先圈定工具性结构和硬信息，只对正文解释腔、经验分享腔、词频残留和可正向化的约束句动手。
+6. 只是局部摘录、单章或短段：可直接从较低层开始；若一眼能看见标准主导路线，内部先形成一句 `主导路线 / 功能链`；只有用户要求诊断、验证、审计、回归或分层输出时才外显。
+7. 对长文、小说、提纲输入，默认先判结构层，再决定是否进入句级。
 
 长度边界：
 
@@ -87,6 +88,7 @@ description: 中文优先的去 AI 味改写 skill。Use when the user asks to r
 - 长文优先检查段群关系是否总在同一套因果 / 转折 / 回收关系里推进
 - 小说优先检查线索、证人、物件、揭示是否按功能排队
 - 提纲至少拆成 `卷级链 / 章节群链 / 单章微链`
+- 技术方法文先识别 `prompt 示例 / checklist / 命令 / 路径 / 函数名 / 日志 / 测试结果`，不要把工具性结构误判为普通 AI 味
 
 如果有 `voice_sample`，只额外判断三件事：原稿最像样文的是什么、最偏离样文的是什么、哪些节奏和收束习惯必须保留。
 
@@ -125,6 +127,8 @@ description: 中文优先的去 AI 味改写 skill。Use when the user asks to r
 - `安全限定回潮残留`
 - `虚词 / 关联词回潮残留`
 - `否定骨架回潮残留`
+- `词频驱动二扫 / 点名词强审`
+- `技术方法文工具性结构误伤`
 - `连续热区残留`
 - `小说残留`
 - `提纲 / 规划感残留`
@@ -139,11 +143,20 @@ description: 中文优先的去 AI 味改写 skill。Use when the user asks to r
 - `标准过渡`：`首先 / 其次 / 最后`、`一方面 / 另一方面`、`与此同时`、`更重要的是`
 - `盖章结尾`：`这就是...的意义`、`最终回到...`、`让...变得更加...`
 
+长文、二改或用户点名词时，额外检查：
+
+- `高风险功能词`：`可以 / 需要 / 应该 / 可能 / 很 / 更 / 其实 / 这样 / 直接 / 最后 / 说明 / 把 / 变成 / 让它 / 这类`
+- `点名词`：用户指出的单字、词或句式，如 `不是 / 不 / 可以 / 把 / 很`
+- `正向约束机会`：`不要改 / 不能动 / 不能只 / 不属于本次`
+
+这些不是禁词；只有承担解释填缝、模板推进、判断缓冲、程度垫词、结论收束或否定骨架时才改。主题词、专业术语、prompt 示例、checklist 字段和硬约束不因高频默认处理。
+
 命中以下任一条件时必须二改：
 
 - 同一残留簇在 `1000` 字内超过 `2` 处
 - 负向平行承担段落主论证，即使只有 `1` 处
 - 结尾 `15%` 出现无必要升华，且原文没有这个收束功能
+- 用户点名的词在段首、段尾、收束位或 prompt 前后解释句中成簇出现，且主要承担模板功能
 
 一般残留只有同时满足这些条件时才二改：
 
@@ -181,6 +194,8 @@ description: 中文优先的去 AI 味改写 skill。Use when the user asks to r
 
 事实类文本强边界：如果文本承担事实说明、评论分析、专业解释、政策 / 法律 / 医疗 / 技术 / 学术功能，不新增原文没有给出的事实、数据、身份、场景、时间地点、因果链或人物动机。去味只能通过删解释、压总结、重排原文材料、降低过度收束来完成。原文没有支撑的“更具体”不是去味，是越界。
 
+技术方法文强边界：文件路径、函数名、命令输出、prompt 示例、checklist、字段名、日志、测试结果和工程约束优先保留；不要为了自然化改坏可复制性、只读边界或验证口径。能把否定式约束改成正向硬边界时优先改，例如 `不要改代码 -> 保持代码原样`、`不能动目录 -> 目录只读`。
+
 不要做：
 
 - 不要把文本改成统一碎口语
@@ -200,8 +215,10 @@ description: 中文优先的去 AI 味改写 skill。Use when the user asks to r
 | 短但强体裁：通知、FAQ、知识库、客服口径、口播、社媒脚本、审稿回复 | [references/chinese_ai_markers.md](./references/chinese_ai_markers.md)、[references/rewrite_principles.md](./references/rewrite_principles.md)；有压缩、卡片化或体裁漂移风险时加读 [references/longform_validation_rules.md](./references/longform_validation_rules.md) | 小说 / 提纲专项，除非输入本身是小说或规划 |
 | 需要跨题材高层模式判断 | [references/chinese_ai_markers.md](./references/chinese_ai_markers.md)、[references/ai_markers.md](./references/ai_markers.md) | 按需 |
 | 中长评论 / 方法文 / 公众号文章 | [references/residual_hotlist.md](./references/residual_hotlist.md)、[references/chinese_ai_markers.md](./references/chinese_ai_markers.md)、[references/rewrite_principles.md](./references/rewrite_principles.md) | [references/plot_outline_rules.md](./references/plot_outline_rules.md) |
+| 技术方法文 / 内部工程经验分享 / 含 prompt 或 checklist 的使用经验文 | [references/technical_method_article_rules.md](./references/technical_method_article_rules.md)、[references/residual_hotlist.md](./references/residual_hotlist.md)、[references/rewrite_principles.md](./references/rewrite_principles.md) | 小说 / 提纲专项，除非输入本身是小说或规划 |
 | `3000+` 长文、强体裁或压缩风险 | [references/longform_validation_rules.md](./references/longform_validation_rules.md)、[references/rewrite_principles.md](./references/rewrite_principles.md) | [references/novel_longform_rules.md](./references/novel_longform_rules.md)，除非是小说 |
 | 小说章节 / 连载正文 / 长篇主稿 | [references/novel_longform_rules.md](./references/novel_longform_rules.md)、[references/rewrite_principles.md](./references/rewrite_principles.md)；句式残留明显时加读 [references/residual_hotlist.md](./references/residual_hotlist.md) | [references/plot_outline_rules.md](./references/plot_outline_rules.md)，除非同时给提纲 |
 | 纯提纲 / 卷表 / 章节规划 | [references/plot_outline_rules.md](./references/plot_outline_rules.md)、[references/outline_denoise_checklist.md](./references/outline_denoise_checklist.md)；句式残留明显时加读 [references/residual_hotlist.md](./references/residual_hotlist.md) | [references/chinese_ai_markers.md](./references/chinese_ai_markers.md)，除非还要改句子 |
 | 用户要求控制项解释 | [references/control_modes.md](./references/control_modes.md) | 其他按需 |
+| 用户点名某个词 / 单字 / 句式仍很多，或要求按词频继续优化 | [references/technical_method_article_rules.md](./references/technical_method_article_rules.md)、[references/residual_hotlist.md](./references/residual_hotlist.md)、[references/audit_checklist.md](./references/audit_checklist.md) | 只做机械删词 |
 | 审计 / 验证 / 回归 | [references/audit_checklist.md](./references/audit_checklist.md)、[references/validation_matrix.md](./references/validation_matrix.md)、[references/examples.md](./references/examples.md) | 按需 |

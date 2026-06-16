@@ -21,6 +21,10 @@
 | 通用说明与评论组：评论文 / 方法文 / 复盘稿 / 说明分析文 / 随笔 | `M` | 连续段功能重复、成熟评论员人格、转场回潮 | 已覆盖 |
 | 通用说明与评论组：评论文 / 方法文 / 复盘稿 / 说明分析文 / 随笔 | `L` | 压缩回潮、稳妥解释者回潮、长距离重复论证 | 已覆盖 |
 | 通用说明与评论组：评论文 / 方法文 / 复盘稿 / 说明分析文 / 随笔 | `XL` | 多文件评论包的结构优先与压缩回潮 | 已覆盖 |
+| 技术方法文组：内部经验分享 / 工程复盘 / 工具使用文章 / 含 prompt 与 checklist 的长文 | `S` | prompt / checklist 是否被误伤，正向约束是否改软 | 部分覆盖 |
+| 技术方法文组：内部经验分享 / 工程复盘 / 工具使用文章 / 含 prompt 与 checklist 的长文 | `M` | 高频功能词二扫、点名词强审、硬信息保真 | 已覆盖 |
+| 技术方法文组：内部经验分享 / 工程复盘 / 工具使用文章 / 含 prompt 与 checklist 的长文 | `L` | 多轮词频追改后是否保住可复制 prompt、路径、命令和验证链路 | 部分覆盖 |
+| 技术方法文组：内部经验分享 / 工程复盘 / 工具使用文章 / 含 prompt 与 checklist 的长文 | `XL` | 多文件工程经验包是否保留证据链、验证方式和交付物边界 | 待补 |
 | 人物与非虚构组：人物特写 / 纪实非虚构 / 叙事型非虚构 | `S` | 借人物整理答案、意义上提 | 已覆盖 |
 | 人物与非虚构组：人物特写 / 纪实非虚构 / 叙事型非虚构 | `M` | 伪具体化、段尾盖章 | 已覆盖 |
 | 人物与非虚构组：人物特写 / 纪实非虚构 / 叙事型非虚构 | `L` | 压缩回潮、成熟解释者人格、场景压平 | 已覆盖 |
@@ -48,6 +52,7 @@
 
 - 小说正文 `L / XL`：跨章重复模板、只有长篇原文时是否先抽影子结构再回写正文。
 - 提纲与规划 `S`：单块功能分配是否过匀，短规划是否也能直接改结构。
+- 技术方法文 `L / XL`：多文件工程经验包、长篇内部分享稿的词频二扫和 prompt / checklist 保真。
 - 强体裁边界 `L / XL`：演讲稿、公文、政策分析、长诗或长政策混合文本是否保住体裁。
 - 未知 / 设计外题材 `M / L / XL`：访谈实录、公告、法规说明、学术摘要是否进入保守边界模式。
 - 用户追改残留：`不是...而是...`、`往往...真正...`、正反两面解释、公众号模板、工程复盘腔外溢，统一由 `anti-aistyle-zh-user-followup-regression` 跟踪。
@@ -67,6 +72,7 @@
 - 改提纲规则：`python3 scripts/render_regression_suite.py --suite anti-aistyle-zh-outline-regression --group core_smoke`
 - 改 residual 规则：`python3 scripts/render_regression_suite.py --suite anti-aistyle-zh-focused-regression --group focused_residuals`
 - 改历史追改 / 二层残留：`python3 scripts/render_regression_suite.py --suite anti-aistyle-zh-user-followup-regression --group core_smoke`
+- 改技术方法文 / 点名词强审：`python3 scripts/render_regression_suite.py --suite anti-aistyle-zh-technical-method-regression --group core_smoke`
 - 改 fixture：`python3 scripts/render_regression_suite.py --lint-fixtures`
 - 基础 skill 校验：`python "${CODEX_HOME:-$HOME/.codex}/skills/.system/skill-creator/scripts/quick_validate.py" "$PWD/anti-aistyle-zh"`
 - 有真实输出文件时：`python3 scripts/check_regression_suite_batch.py --manifest <manifest.json> --hotlist-scan`

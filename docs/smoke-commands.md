@@ -38,6 +38,7 @@ python3 anti-aistyle-zh/scripts/render_regression_suite.py --lint-fixtures
 python3 anti-aistyle-zh/scripts/render_regression_suite.py --suite anti-aistyle-zh-local-regression --group core_smoke
 python3 anti-aistyle-zh/scripts/render_regression_suite.py --suite anti-aistyle-zh-focused-regression --group focused_residuals
 python3 anti-aistyle-zh/scripts/render_regression_suite.py --suite anti-aistyle-zh-user-followup-regression --group core_smoke
+python3 anti-aistyle-zh/scripts/render_regression_suite.py --suite anti-aistyle-zh-technical-method-regression --group core_smoke
 ```
 
 ## 有真实输出文件时
