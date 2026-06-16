@@ -73,6 +73,7 @@ ln -sfn "$PWD/anti-aistyle-zh" "${CODEX_HOME:-$HOME/.codex}/skills/anti-aistyle-
 - [scripts/render_regression_suite.py](./anti-aistyle-zh/scripts/render_regression_suite.py)：回归夹具渲染、fixture lint、单输出断言。
 - [scripts/check_regression_suite_batch.py](./anti-aistyle-zh/scripts/check_regression_suite_batch.py)：批量检查真实输出，支持 `--hotlist-scan`。
 - [docs/smoke-commands.md](./docs/smoke-commands.md)：维护者常用校验命令。
+- [docs/release-commands.md](./docs/release-commands.md)：公开发布前检查和推送命令。
 
 ## 回归与校验
 

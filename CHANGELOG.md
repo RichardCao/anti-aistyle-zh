@@ -12,6 +12,7 @@
 - 新增提纲覆盖样本 `O08`，补短规划单块“平均配额”问题。
 - 新增 `scripts/check_regression_suite_batch.py --hotlist-scan`，用于真实输出批次的热点残留扫描。
 - 新增 `docs/smoke-commands.md`，记录安装、校验和核心 smoke 命令。
+- 新增 `docs/release-commands.md`，记录只公开 skill 的发布前检查、最小校验和推送命令。
 - 新增 `requirements-dev.txt`，声明维护校验脚本所需的 `PyYAML` 依赖。
 
 ### Changed
@@ -24,6 +25,7 @@
 - `SKILL.md` 新增技术方法文路由、点名词强审入口和工具性结构保真边界。
 - `audit_checklist.md` 新增技术方法文 / 内部经验分享卡，区分功能词残留和 prompt / checklist / 专业术语必要用法。
 - `rewrite_principles.md` 新增技术方法文的 `工具性结构 pass`。
+- `technical_method_article_rules.md` 新增目录，便于按需读取长 reference。
 - `longform_validation_rules.md`、`novel_longform_rules.md`、`plot_outline_rules.md` 同步新增专项 pass 路由。
 - `validation_matrix.md` 更新当前重点补样、历史追改 suite 和 `--hotlist-scan` 流程。
 - `agents/openai.yaml` 同步场景化默认强度，不再写 `Default to balanced`。
