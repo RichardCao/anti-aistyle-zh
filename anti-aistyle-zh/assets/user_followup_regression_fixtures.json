@@ -1,0 +1,155 @@
+{
+  "version": "2026-06-16",
+  "suite_name": "anti-aistyle-zh-user-followup-regression",
+  "default_call_policy": {
+    "only_required_input": "target_text",
+    "optional_controls": [
+      "voice_sample",
+      "rewrite_intensity",
+      "target_reading_feel",
+      "output_mode"
+    ]
+  },
+  "cases": [
+    {
+      "id": "UF01_not_but",
+      "category": "user_followup_negative_parallel",
+      "groups": ["core_smoke", "user_followup", "hotlist"],
+      "text_type": "article",
+      "call_mode": "default_only",
+      "risk_tags": ["不是而是", "负向平行", "二层残留"],
+      "input": "这篇稿子的问题不是材料不够，而是所有材料都被整理成了一个太稳的结论。它不只是少了一点人味，更是把每个转折都提前解释干净了。",
+      "assertions": {
+        "forbid_patterns": ["不是材料不够，而是", "不只是少了一点人味，更是"],
+        "nonincreasing_pattern_groups": [
+          {
+            "label": "negative_parallel",
+            "patterns": ["不是", "而是", "不只是", "更是", "问题不在", "而在"],
+            "max_total": 2
+          }
+        ],
+        "max_total_pattern_groups": [
+          {
+            "label": "negative_parallel",
+            "patterns": ["不是", "而是", "不只是", "更是", "问题不在", "而在"],
+            "max_total": 2
+          }
+        ],
+        "preserve_keywords": ["材料", "结论", "转折"],
+        "min_char_ratio": 0.55,
+        "max_added_details": 1
+      }
+    },
+    {
+      "id": "UF02_wangwang_zhenzheng",
+      "category": "user_followup_summary_anchor",
+      "groups": ["core_smoke", "user_followup", "hotlist"],
+      "text_type": "article",
+      "call_mode": "default_only",
+      "risk_tags": ["往往真正", "总结锚点", "无证泛化"],
+      "input": "很多时候，真正决定一件事能不能走下去的，往往不是资源多少，而是团队有没有把关键路径收回来。说到底，这背后还是执行力的问题。",
+      "assertions": {
+        "remove_patterns": ["真正决定", "往往不是", "收回来", "说到底", "这背后"],
+        "max_total_pattern_groups": [
+          {
+            "label": "summary_anchor",
+            "patterns": ["真正", "往往", "本质", "核心", "关键", "说到底", "归根结底"],
+            "max_total": 1
+          }
+        ],
+        "preserve_keywords": ["资源", "团队", "执行"],
+        "min_char_ratio": 0.5,
+        "max_added_details": 1
+      }
+    },
+    {
+      "id": "UF03_overbalanced_explanation",
+      "category": "user_followup_overbalanced_explanation",
+      "groups": ["core_smoke", "user_followup", "hotlist"],
+      "text_type": "commentary",
+      "call_mode": "default_only",
+      "risk_tags": ["正反两面解释", "安全补丁", "过度稳"],
+      "input": "当然，这不是说旧办法完全没有价值，也不意味着新办法就一定更好。更准确地说，我们需要在两者之间找到一个更稳妥的平衡点，避免简单地站在任何一边。",
+      "assertions": {
+        "remove_patterns": ["当然", "这不是说", "也不意味着", "更准确地说", "更稳妥的平衡点", "避免简单地"],
+        "max_total_pattern_groups": [
+          {
+            "label": "safety_patch",
+            "patterns": ["当然", "不是说", "不意味着", "更准确地说", "避免简单", "平衡点"],
+            "max_total": 1
+          }
+        ],
+        "preserve_keywords": ["旧办法", "新办法"],
+        "min_char_ratio": 0.45,
+        "max_added_details": 1
+      }
+    },
+    {
+      "id": "UF04_mp_title_author_note",
+      "category": "user_followup_mp_packaging",
+      "groups": ["core_smoke", "user_followup", "mp"],
+      "text_type": "article",
+      "call_mode": "default_only",
+      "risk_tags": ["公众号模板", "标题作者按摘要", "宣传腔"],
+      "input": "标题：一个小工具背后的大问题\n作者按：这篇文章想讨论的不是一个工具本身，而是它背后反映出来的创作困境。摘要：从一次小实验出发，看见 AI 写作里真正难处理的地方。",
+      "assertions": {
+        "remove_patterns": ["背后的大问题", "不是一个工具本身，而是", "背后反映出来", "真正难处理"],
+        "forbid_patterns": ["这篇文章想讨论的不是", "从一次小实验出发，看见", "真正难处理"],
+        "preserve_keywords": ["标题", "作者按", "摘要", "小工具", "AI 写作"],
+        "max_total_pattern_groups": [
+          {
+            "label": "mp_template",
+            "patterns": ["背后", "真正", "不是", "而是", "出发", "看见"],
+            "max_total": 2
+          }
+        ],
+        "min_nonempty_lines": 3,
+        "max_added_details": 1
+      }
+    },
+    {
+      "id": "UF05_after_skill_still_ai",
+      "category": "user_followup_second_pass",
+      "groups": ["core_smoke", "user_followup", "second_pass"],
+      "text_type": "article",
+      "call_mode": "default_only",
+      "risk_tags": ["已过一版仍有AI味", "二改", "成熟总结腔"],
+      "input": "这版已经比原稿自然一些，但整段过程看下来，大概还是同一个问题：它把所有经验都收回到一个很清楚的判断里。最麻烦的地方，不是句子顺不顺，而是每一步都太会解释自己。",
+      "assertions": {
+        "remove_patterns": ["整段过程看下来", "大概还是同一个问题", "收回到", "很清楚的判断", "最麻烦的地方，不是"],
+        "max_total_pattern_groups": [
+          {
+            "label": "second_pass_residual",
+            "patterns": ["看下来", "同一个问题", "收回", "判断", "最麻烦", "不是", "而是"],
+            "max_total": 2
+          }
+        ],
+        "preserve_keywords": ["原稿", "经验", "解释"],
+        "min_char_ratio": 0.5,
+        "max_added_details": 1
+      }
+    },
+    {
+      "id": "UF06_engineering_review_leak",
+      "category": "user_followup_engineering_abstract_leak",
+      "groups": ["core_smoke", "user_followup", "hotlist"],
+      "text_type": "narrative",
+      "call_mode": "default_only",
+      "risk_tags": ["工程复盘腔外溢", "抽象词簇", "非工程题材"],
+      "input": "这件小事最后能收口，不是因为他们找到了最优路径，而是几个一直沉默的人终于把话接上了。整个过程的颗粒度不高，但关系链路算是重新闭环。",
+      "assertions": {
+        "remove_patterns": ["收口", "颗粒度", "闭环"],
+        "max_total_pattern_groups": [
+          {
+            "label": "engineering_abstract_leak",
+            "patterns": ["路径", "收口", "落地", "闭环", "对齐", "颗粒度", "链路"],
+            "max_total": 0
+          }
+        ],
+        "preserve_keywords": ["小事", "沉默", "把话接上"],
+        "min_char_ratio": 0.5,
+        "max_added_details": 1
+      }
+    }
+  ]
+}

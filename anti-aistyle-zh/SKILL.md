@@ -19,7 +19,7 @@ description: 中文优先的去 AI 味改写 skill。Use when the user asks to r
 
 - 默认调用只需要目标文本
 - 可选控制项只有四类：`voice_sample / 样文`、`改写强度`（`rewrite_intensity`）、`目标读感`（`target_reading_feel`）、`输出模式`（`output_mode`）
-- 默认改写强度：`平衡`
+- 默认改写强度按场景映射：创作 / 公众号 / 评论 / 随笔 / 复盘 / 小说 / 提纲默认 `偏强`；通知 / FAQ / 客服口径 / 口播 / 社媒脚本默认 `平衡`；政策 / 法律 / 医疗 / 技术 / 学术 / 法规 / 新闻事实说明默认 `保守`
 - 默认目标读感：`更像自然中文`
 - 默认输出模式：`最终成稿`
 - 对任何输入，真正的评估对象都只是去味后的最终内容
@@ -37,11 +37,11 @@ description: 中文优先的去 AI 味改写 skill。Use when the user asks to r
 5. 不为去味改掉原意、立场、叙述重点或角色口吻，也不把“更口语”“更乱一点”误当成“更自然”。
 6. 不把地域、阶层、社群、职业、代际差异洗成统一标准语；原文有声纹时先保声纹。
 7. 正式、规范、克制、结构清楚本身不是 AI 味；只有当它们承担重复解释、统一人格、模板推进或过度收束时才处理。
-8. 二改只在残留还能稳定指出时继续；如果只剩整体气口偏稳，就停手。
+8. 二改默认由残留簇二扫触发；同簇残留能稳定落到句法、姿态或结构时，必须回写正文，不只写进审计。
 
 ## 内部固定顺序
 
-统一内部顺序固定为 `诊断 -> 改写 -> 审计`，默认不把这些过程标题前置展示。
+统一内部顺序固定为 `场景判定 -> 强度映射 -> 诊断 -> 初改 -> 残留簇二扫 -> 必要二改 -> 体裁 / 事实校验 -> 最终成稿`，默认不把这些过程标题前置展示。
 
 如果输入是整部长篇，层级顺序固定为 `剧情 / 提纲层 -> 小说长篇层 -> 长文层 -> 文本层`。
 
@@ -113,6 +113,7 @@ description: 中文优先的去 AI 味改写 skill。Use when the user asks to r
 
 改完后回扫：
 
+- `残留簇二扫`
 - `解释残留`
 - `骨架 / 篇章关系残留`
 - `收束残留`
@@ -129,7 +130,22 @@ description: 中文优先的去 AI 味改写 skill。Use when the user asks to r
 - `提纲 / 规划感残留`
 - `越界检查`
 
-只有同时满足这些条件时才二改：
+残留簇二扫优先检查：
+
+- `负向平行`：`不是...而是...`、`不只是...更是...`、`问题不在...而在...`、`与其...不如...`
+- `总结锚点`：`真正`、`本质`、`核心`、`关键在于`、`说到底`、`归根结底`
+- `工程抽象`：`路径`、`收口`、`落地`、`闭环`、`对齐`、`颗粒度`、`边界`
+- `解释胶水`：`也就是说`、`换句话说`、`这背后`、`从某种意义上`
+- `标准过渡`：`首先 / 其次 / 最后`、`一方面 / 另一方面`、`与此同时`、`更重要的是`
+- `盖章结尾`：`这就是...的意义`、`最终回到...`、`让...变得更加...`
+
+命中以下任一条件时必须二改：
+
+- 同一残留簇在 `1000` 字内超过 `2` 处
+- 负向平行承担段落主论证，即使只有 `1` 处
+- 结尾 `15%` 出现无必要升华，且原文没有这个收束功能
+
+一般残留只有同时满足这些条件时才二改：
 
 - 同类残留还能指出 `2` 处以上
 - 问题能落到具体句法、姿态或结构
@@ -180,12 +196,12 @@ description: 中文优先的去 AI 味改写 skill。Use when the user asks to r
 
 | 场景 | 默认读取 | 不要读取 |
 | --- | --- | --- |
-| `1500` 字以内短中文文本 | [references/chinese_ai_markers.md](./references/chinese_ai_markers.md) | [references/novel_longform_rules.md](./references/novel_longform_rules.md)、[references/plot_outline_rules.md](./references/plot_outline_rules.md) |
+| `1500` 字以内短中文文本 | [references/residual_hotlist.md](./references/residual_hotlist.md)、[references/chinese_ai_markers.md](./references/chinese_ai_markers.md) | [references/novel_longform_rules.md](./references/novel_longform_rules.md)、[references/plot_outline_rules.md](./references/plot_outline_rules.md) |
 | 短但强体裁：通知、FAQ、知识库、客服口径、口播、社媒脚本、审稿回复 | [references/chinese_ai_markers.md](./references/chinese_ai_markers.md)、[references/rewrite_principles.md](./references/rewrite_principles.md)；有压缩、卡片化或体裁漂移风险时加读 [references/longform_validation_rules.md](./references/longform_validation_rules.md) | 小说 / 提纲专项，除非输入本身是小说或规划 |
 | 需要跨题材高层模式判断 | [references/chinese_ai_markers.md](./references/chinese_ai_markers.md)、[references/ai_markers.md](./references/ai_markers.md) | 按需 |
-| 中长评论 / 方法文 | [references/chinese_ai_markers.md](./references/chinese_ai_markers.md)、[references/rewrite_principles.md](./references/rewrite_principles.md) | [references/plot_outline_rules.md](./references/plot_outline_rules.md) |
+| 中长评论 / 方法文 / 公众号文章 | [references/residual_hotlist.md](./references/residual_hotlist.md)、[references/chinese_ai_markers.md](./references/chinese_ai_markers.md)、[references/rewrite_principles.md](./references/rewrite_principles.md) | [references/plot_outline_rules.md](./references/plot_outline_rules.md) |
 | `3000+` 长文、强体裁或压缩风险 | [references/longform_validation_rules.md](./references/longform_validation_rules.md)、[references/rewrite_principles.md](./references/rewrite_principles.md) | [references/novel_longform_rules.md](./references/novel_longform_rules.md)，除非是小说 |
-| 小说章节 / 连载正文 / 长篇主稿 | [references/novel_longform_rules.md](./references/novel_longform_rules.md)、[references/rewrite_principles.md](./references/rewrite_principles.md) | [references/plot_outline_rules.md](./references/plot_outline_rules.md)，除非同时给提纲 |
-| 纯提纲 / 卷表 / 章节规划 | [references/plot_outline_rules.md](./references/plot_outline_rules.md)、[references/outline_denoise_checklist.md](./references/outline_denoise_checklist.md) | [references/chinese_ai_markers.md](./references/chinese_ai_markers.md)，除非还要改句子 |
+| 小说章节 / 连载正文 / 长篇主稿 | [references/novel_longform_rules.md](./references/novel_longform_rules.md)、[references/rewrite_principles.md](./references/rewrite_principles.md)；句式残留明显时加读 [references/residual_hotlist.md](./references/residual_hotlist.md) | [references/plot_outline_rules.md](./references/plot_outline_rules.md)，除非同时给提纲 |
+| 纯提纲 / 卷表 / 章节规划 | [references/plot_outline_rules.md](./references/plot_outline_rules.md)、[references/outline_denoise_checklist.md](./references/outline_denoise_checklist.md)；句式残留明显时加读 [references/residual_hotlist.md](./references/residual_hotlist.md) | [references/chinese_ai_markers.md](./references/chinese_ai_markers.md)，除非还要改句子 |
 | 用户要求控制项解释 | [references/control_modes.md](./references/control_modes.md) | 其他按需 |
-| 审计 / 验证 / 回归 | [references/audit_checklist.md](./references/audit_checklist.md)、[references/examples.md](./references/examples.md) | 按需 |
+| 审计 / 验证 / 回归 | [references/audit_checklist.md](./references/audit_checklist.md)、[references/validation_matrix.md](./references/validation_matrix.md)、[references/examples.md](./references/examples.md) | 按需 |

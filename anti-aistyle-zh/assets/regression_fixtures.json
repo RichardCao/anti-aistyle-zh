@@ -1,0 +1,542 @@
+{
+  "version": "2026-04-21",
+  "suite_name": "anti-aistyle-zh-local-regression",
+  "default_call_policy": {
+    "only_required_input": "target_text",
+    "optional_controls": [
+      "voice_sample",
+      "rewrite_intensity",
+      "target_reading_feel",
+      "output_mode"
+    ]
+  },
+  "cases": [
+    {
+      "id": "R01",
+      "category": "rewrite",
+      "text_type": "article",
+      "call_mode": "use_preferred_output_mode",
+      "risk_tags": ["解释框起手句", "抽象判断"],
+      "preferred_output_mode": "局部替代改写",
+      "input": "换句话说，这件事的本质并不是功能缺失，而是语义边界一直没有被定义清楚。",
+      "assertions": {
+        "remove_patterns": ["换句话说", "本质", "语义边界"],
+        "forbid_patterns": ["某种意义上", "从某个角度看"],
+        "preserve_keywords": ["功能", "没说清"],
+        "max_added_details": 1
+      }
+    },
+    {
+      "id": "R02",
+      "category": "rewrite",
+      "text_type": "article",
+      "call_mode": "use_preferred_output_mode",
+      "risk_tags": ["命题化总结句", "段尾盖章"],
+      "preferred_output_mode": "局部替代改写",
+      "input": "这也是为什么，文章到了这里，真正重要的已经不是结论本身，而是它怎样一步步发生。",
+      "assertions": {
+        "remove_patterns": ["这也是为什么", "真正重要的"],
+        "forbid_patterns": ["说到底", "关键在于"],
+        "preserve_keywords": ["怎么", "一步步"],
+        "max_added_details": 1
+      }
+    },
+    {
+      "id": "R03",
+      "category": "rewrite",
+      "text_type": "article",
+      "call_mode": "use_preferred_output_mode",
+      "risk_tags": ["工整对比归纳句"],
+      "preferred_output_mode": "局部替代改写",
+      "input": "问题不在他有没有看懂，而在他明明看懂了，却还得先把手边那点小事做完。",
+      "assertions": {
+        "remove_patterns": ["问题不在", "而在"],
+        "forbid_patterns": ["倒不是", "真正难的是"],
+        "preserve_keywords": ["看懂", "手边", "做完"],
+        "max_added_details": 0
+      }
+    },
+    {
+      "id": "R04",
+      "category": "rewrite",
+      "text_type": "article",
+      "call_mode": "use_preferred_output_mode",
+      "risk_tags": ["段首领句", "开段报题"],
+      "preferred_output_mode": "局部替代改写",
+      "input": "这里面有一个很直接的原因：商场从立项开始，就先要回答回报问题。",
+      "assertions": {
+        "remove_patterns": ["这里面有一个很直接的原因"],
+        "forbid_patterns": ["还有一点容易被忽略", "更实际的做法是"],
+        "preserve_keywords": ["商场", "立项", "回报"],
+        "max_added_details": 0
+      }
+    },
+    {
+      "id": "R05",
+      "category": "rewrite",
+      "text_type": "article",
+      "call_mode": "use_preferred_output_mode",
+      "risk_tags": ["汇报骨架句"],
+      "preferred_output_mode": "局部替代改写",
+      "input": "更重要的是，这并不是说效率没有价值，而是我们不能把所有表达都训练成汇报。",
+      "assertions": {
+        "remove_patterns": ["更重要的是", "这并不是说", "而是"],
+        "forbid_patterns": ["最终需要", "归纳起来看"],
+        "preserve_keywords": ["效率", "表达", "汇报"],
+        "max_added_details": 0
+      }
+    },
+    {
+      "id": "R06",
+      "category": "rewrite",
+      "text_type": "article",
+      "call_mode": "use_preferred_output_mode",
+      "risk_tags": ["安全限定句"],
+      "preferred_output_mode": "局部替代改写",
+      "input": "当然，这并不意味着我们要完全回到过去，而是需要重新理解这些普通手艺的价值。",
+      "assertions": {
+        "remove_patterns": ["当然", "并不意味着", "重新理解"],
+        "forbid_patterns": ["不能简单地", "不完全是因为"],
+        "preserve_keywords": ["过去", "手艺", "价值"],
+        "max_added_details": 0
+      }
+    },
+    {
+      "id": "R07",
+      "category": "rewrite",
+      "text_type": "article",
+      "call_mode": "use_preferred_output_mode",
+      "risk_tags": ["老师腔经验句"],
+      "preferred_output_mode": "局部替代改写",
+      "input": "人最难的是开始，不是继续。",
+      "assertions": {
+        "remove_patterns": ["人最难的是", "不是继续"],
+        "forbid_patterns": ["真正起作用的时候"],
+        "preserve_keywords": ["开始"],
+        "max_added_details": 0
+      }
+    },
+    {
+      "id": "R08",
+      "category": "rewrite",
+      "text_type": "article",
+      "call_mode": "use_preferred_output_mode",
+      "risk_tags": ["写作者自我总结句"],
+      "preferred_output_mode": "局部替代改写",
+      "input": "如果给这段过程补一句最贴切的话，那就是一切都在慢慢失控。",
+      "assertions": {
+        "remove_patterns": ["如果给这段过程补一句最贴切的话"],
+        "forbid_patterns": ["最值得记的有几条", "大概就是这么个样子"],
+        "preserve_keywords": ["慢慢", "失控"],
+        "max_added_details": 0
+      }
+    },
+    {
+      "id": "R09",
+      "category": "rewrite",
+      "text_type": "narrative",
+      "call_mode": "use_preferred_output_mode",
+      "risk_tags": ["动作后的心理翻译"],
+      "preferred_output_mode": "局部替代改写",
+      "input": "她说自己没事，让我回去睡，我知道她是嫌麻烦，也是不想让我心里一直悬着。",
+      "assertions": {
+        "remove_patterns": ["我知道她是", "不想让我心里一直悬着"],
+        "forbid_patterns": ["其实她是", "她只是想"],
+        "preserve_keywords": ["没事", "回去睡"],
+        "max_added_details": 1
+      }
+    },
+    {
+      "id": "R10",
+      "category": "rewrite",
+      "text_type": "fiction",
+      "call_mode": "use_preferred_output_mode",
+      "risk_tags": ["情绪落锤模板", "解释链"],
+      "preferred_output_mode": "局部替代改写",
+      "input": "他握住剑柄，往前迈了一步。那一步迈出去，他身上的气就变了。不是境界真涨了多少，是那股一直压在骨子里的锋芒，到了这会儿，再也按不住。",
+      "assertions": {
+        "remove_patterns": ["不是境界真涨了多少", "到了这会儿"],
+        "forbid_patterns": ["真正", "这才"],
+        "preserve_keywords": ["剑柄", "迈了一步", "锋芒"],
+        "max_added_details": 1
+      }
+    },
+    {
+      "id": "R11",
+      "category": "rewrite",
+      "text_type": "article",
+      "call_mode": "use_preferred_output_mode",
+      "risk_tags": ["隐性骨架", "稳定评论员人格"],
+      "preferred_output_mode": "局部替代改写",
+      "input": "写到这里，问题其实已经很清楚了。很多团队表面上是在讨论效率，实际上是在借效率回避分工里的尴尬。举个最常见的例子，人人都说流程太慢，可真要把责任拆开时，又希望继续糊成一团。说到底，他们怕的不是麻烦，而是把名字落到自己这一格。",
+      "assertions": {
+        "remove_patterns": ["写到这里", "问题其实已经很清楚了", "说到底"],
+        "forbid_patterns": ["归根结底", "更重要的是"],
+        "preserve_keywords": ["效率", "分工", "责任", "名字"],
+        "max_added_details": 1
+      }
+    },
+    {
+      "id": "R12",
+      "category": "rewrite",
+      "text_type": "narrative",
+      "call_mode": "use_preferred_output_mode",
+      "risk_tags": ["现场回望领悟", "伪具体化"],
+      "preferred_output_mode": "局部替代改写",
+      "input": "我把旧锅从灶台底下拖出来，锅耳上全是黑灰。母亲蹲在门口看着，忽然笑了一下。我那时就明白，有些东西留在家里，并不是为了继续用，而是怕把人过日子的那点章法一起丢了。",
+      "assertions": {
+        "remove_patterns": ["我那时就明白", "并不是为了", "那点章法"],
+        "forbid_patterns": ["很多年后再看", "真正留下来的"],
+        "preserve_keywords": ["旧锅", "黑灰", "母亲", "笑了一下"],
+        "max_added_details": 0
+      }
+    },
+    {
+      "id": "R13",
+      "category": "rewrite",
+      "text_type": "fiction",
+      "call_mode": "use_preferred_output_mode",
+      "risk_tags": ["情节功能过顺", "证人来得太准"],
+      "preferred_output_mode": "局部替代改写",
+      "input": "我在抽屉里翻到钥匙，纸条上正好写着后仓。刚赶到后仓，老刘就把账册递给我，说记者已经等在门口。事情一环扣一环地到位，我这才真正明白，他们早就把路给我铺好了。",
+      "assertions": {
+        "remove_patterns": ["正好写着", "一环扣一环地到位", "这才真正明白"],
+        "forbid_patterns": ["原来如此", "终于真正"],
+        "preserve_keywords": ["钥匙", "后仓", "账册", "记者"],
+        "max_added_details": 1
+      }
+    },
+    {
+      "id": "R14",
+      "category": "boundary",
+      "text_type": "article",
+      "call_mode": "use_preferred_output_mode",
+      "risk_tags": ["前半句保留", "后半句该修", "停手边界"],
+      "preferred_output_mode": "局部替代改写",
+      "input": "店里账没乱，乱的是每次一出事，大家就默认谁嗓门大谁来定说法。",
+      "assertions": {
+        "remove_patterns": ["默认", "定说法"],
+        "forbid_patterns": ["从某种意义上", "归根结底"],
+        "preserve_keywords": ["店里账没乱", "一出事", "嗓门大"],
+        "max_added_details": 0
+      }
+    },
+    {
+      "id": "R15",
+      "category": "boundary",
+      "text_type": "narrative",
+      "call_mode": "use_preferred_output_mode",
+      "risk_tags": ["完成度高", "不该过改", "停手边界"],
+      "preferred_output_mode": "局部替代改写",
+      "input": "雨停了以后，巷子里那股潮气还没散，墙根一排旧纸箱慢慢鼓起来，像一夜之间都学会了喘气。",
+      "assertions": {
+        "forbid_patterns": ["换句话说", "真正", "某种意义上"],
+        "preserve_keywords": ["雨停了以后", "潮气", "旧纸箱", "喘气"],
+        "max_added_details": 0
+      }
+    },
+    {
+      "id": "R16",
+      "category": "boundary",
+      "text_type": "article",
+      "call_mode": "use_preferred_output_mode",
+      "risk_tags": ["技术词保留", "局部去味", "不要泛化术语"],
+      "preferred_output_mode": "局部替代改写",
+      "input": "这套灰度发布本身没错，问题是回滚阈值写得太像汇报材料，真出抖动时谁也不敢先按。",
+      "assertions": {
+        "remove_patterns": ["问题是", "太像汇报材料"],
+        "forbid_patterns": ["某个技术环节", "某种方案"],
+        "preserve_keywords": ["灰度发布", "回滚阈值", "抖动"],
+        "max_added_details": 0
+      }
+    },
+    {
+      "id": "R17",
+      "category": "boundary",
+      "text_type": "fiction",
+      "call_mode": "use_preferred_output_mode",
+      "risk_tags": ["气氛补丁", "伪去味", "不要过添细节"],
+      "preferred_output_mode": "局部替代改写",
+      "input": "他把门闩抬起来，木头里先是一声涩响，随后整条院子都静了一下，像有谁在黑里侧过脸来。",
+      "assertions": {
+        "forbid_patterns": ["月色", "风声", "某种压迫感"],
+        "preserve_keywords": ["门闩", "涩响", "院子", "静了一下"],
+        "max_added_details": 0
+      }
+    },
+    {
+      "id": "R18",
+      "category": "boundary",
+      "text_type": "article",
+      "call_mode": "use_preferred_output_mode",
+      "risk_tags": ["样文过拟合", "保真", "不要顺手改立场"],
+      "preferred_output_mode": "局部替代改写",
+      "input": "我并不反对把流程写细，我反对的是一群人先把责任写虚，再拿细流程装作已经管住了风险。",
+      "assertions": {
+        "remove_patterns": ["我反对的是", "装作已经管住了风险"],
+        "forbid_patterns": ["换一个更文学的说法", "更柔和地讲"],
+        "preserve_keywords": ["不反对", "流程写细", "责任写虚", "风险"],
+        "max_added_details": 0
+      }
+    },
+    {
+      "id": "R19",
+      "category": "rewrite",
+      "text_type": "narrative",
+      "call_mode": "use_preferred_output_mode",
+      "risk_tags": ["人物特写", "意义上提", "借人整理答案"],
+      "preferred_output_mode": "局部替代改写",
+      "input": "她替老人把衬衣一粒粒扣好，又把领口抚平。老人没说谢，只抬手摸了摸最上面那颗扣子。像这样的时刻，真正被照顾的并不只是身体，而是一个人最后那点不愿散掉的体面。",
+      "assertions": {
+        "remove_patterns": ["真正被照顾的", "最后那点不愿散掉的体面"],
+        "forbid_patterns": ["这说明", "某种尊严"],
+        "preserve_keywords": ["衬衣", "扣好", "摸了摸", "扣子"],
+        "max_added_details": 0
+      }
+    },
+    {
+      "id": "R20",
+      "category": "rewrite",
+      "text_type": "narrative",
+      "call_mode": "use_preferred_output_mode",
+      "risk_tags": ["纪实非虚构", "职业意义总结", "段尾裁判"],
+      "preferred_output_mode": "局部替代改写",
+      "input": "她把热毛巾重新拧了一遍，盖在老人胸口上，先不急着继续洗。家属站在门边，手里还攥着刚换下来的衣服。照护工作真正难的，从来不是洗这件事本身，而是怎样在狼狈和亲密之间替一家人守住分寸。",
+      "assertions": {
+        "remove_patterns": ["真正难的", "守住分寸"],
+        "forbid_patterns": ["归根结底", "说到底"],
+        "preserve_keywords": ["热毛巾", "胸口", "家属", "衣服"],
+        "max_added_details": 0
+      }
+    },
+    {
+      "id": "R21",
+      "category": "rewrite",
+      "text_type": "article",
+      "call_mode": "use_preferred_output_mode",
+      "risk_tags": ["虚词回潮", "填缝副词", "关联词回升"],
+      "preferred_output_mode": "局部替代改写",
+      "input": "他其实已经不想再争了，只是会议仍然在往下拖，于是谁都得把话说得更圆一点。",
+      "assertions": {
+        "remove_patterns": ["其实", "已经", "仍然", "于是"],
+        "forbid_patterns": ["与此同时", "进一步来看", "更重要的是"],
+        "preserve_keywords": ["会议", "往下拖", "说得更圆一点"],
+        "nonincreasing_patterns": ["其实", "已经", "仍然", "于是", "同时", "进一步"],
+        "max_total_pattern_groups": [
+          {
+            "label": "filler_tokens",
+            "patterns": ["其实", "已经", "仍然", "于是", "同时", "进一步"],
+            "max_total": 2
+          }
+        ],
+        "max_added_details": 0
+      }
+    },
+    {
+      "id": "R22",
+      "category": "rewrite",
+      "text_type": "article",
+      "call_mode": "use_preferred_output_mode",
+      "risk_tags": ["否定骨架", "否定+肯定过密", "工整归纳句"],
+      "preferred_output_mode": "局部替代改写",
+      "input": "问题不在大家没有看到风险，而在大家明明看到了，还得先把话说得更稳一点。",
+      "assertions": {
+        "remove_patterns": ["问题不在", "而在"],
+        "forbid_patterns": ["不是没有", "不只是", "并不是"],
+        "preserve_keywords": ["风险", "看到了", "说得更稳一点"],
+        "nonincreasing_patterns": ["不是", "而是", "而在", "不只是", "不是没有", "并不是"],
+        "max_total_pattern_groups": [
+          {
+            "label": "negation_frames",
+            "patterns": ["问题不在", "而在", "不只是", "不是没有", "并不是"],
+            "max_total": 1
+          }
+        ],
+        "max_added_details": 0
+      }
+    },
+    {
+      "id": "R23",
+      "category": "boundary",
+      "text_type": "narrative",
+      "call_mode": "use_preferred_output_mode",
+      "risk_tags": ["引语同腔", "对象感", "标点异质性"],
+      "preferred_output_mode": "局部替代改写",
+      "input": "他说：“先别叫车。”又转头问护士：“今晚还要再量一次吗？”走廊里没人替他把话讲圆，他自己也没有往下解释。",
+      "assertions": {
+        "must_preserve_patterns": ["“", "”", "护士"],
+        "forbid_patterns": ["换句话说", "这说明"],
+        "min_punctuation_kinds": 3,
+        "max_added_details": 0
+      }
+    },
+    {
+      "id": "U01",
+      "category": "unknown_academic_abstract",
+      "text_type": "academic",
+      "call_mode": "default_only",
+      "risk_tags": ["学术摘要", "事实边界", "不补实验结论"],
+      "input": "本研究基于三所社区医院的随访记录，比较慢病管理系统上线前后患者复诊提醒的触达情况。初步结果显示，短信提醒与人工电话并用时，部分患者的复诊间隔更稳定，但样本量有限，尚不能说明该系统对长期依从性具有独立影响。后续研究需扩大样本并控制年龄、病程和用药类型差异。",
+      "assertions": {
+        "forbid_patterns": ["显著提高", "证明了", "长期依从性显著改善", "具有推广价值", "颠覆"],
+        "preserve_keywords": ["三所社区医院", "随访记录", "短信提醒", "人工电话", "样本量有限", "年龄", "病程", "用药类型"],
+        "min_char_ratio": 0.75,
+        "max_added_details": 0
+      }
+    },
+    {
+      "id": "U02",
+      "category": "unknown_interview_transcript",
+      "text_type": "interview",
+      "call_mode": "default_only",
+      "risk_tags": ["访谈实录", "问答关系", "对象感", "不改成评论文"],
+      "input": "问：你们为什么还留着这个旧售票口？答：不是特意留着做样子。拆的时候发现后面电线太乱，先没动。后来有老观众来，说以前就是在这个窗口买票，我们才决定把外面的木框修一下，里面不再卖票，就放几张旧排片单。",
+      "assertions": {
+        "forbid_patterns": ["这说明", "从城市记忆的角度看", "某种公共情感", "归根到底"],
+        "preserve_keywords": ["问：", "答：", "旧售票口", "电线", "老观众", "旧排片单"],
+        "must_preserve_patterns": ["问：", "答："],
+        "min_char_ratio": 0.78,
+        "max_added_details": 0
+      }
+    },
+    {
+      "id": "U03",
+      "category": "unknown_public_notice",
+      "text_type": "notice",
+      "call_mode": "default_only",
+      "risk_tags": ["公告", "应急通知", "不升级成完整致歉件"],
+      "input": "临时通知：因二楼东侧管道检修，今天15:00到17:00暂停二楼东侧卫生间使用。一楼大厅卫生间正常开放。检修结束后会在群里通知，如提前恢复，以现场张贴为准。",
+      "assertions": {
+        "forbid_patterns": ["深表歉意", "感谢理解与配合", "特此公告", "为了确保", "现将有关事项通知如下"],
+        "preserve_keywords": ["二楼东侧", "15:00到17:00", "一楼大厅卫生间", "群里通知", "现场张贴"],
+        "min_char_ratio": 0.65,
+        "max_added_details": 0
+      }
+    },
+    {
+      "id": "U04",
+      "category": "unknown_regulatory_excerpt",
+      "text_type": "regulatory",
+      "call_mode": "default_only",
+      "risk_tags": ["法规说明", "规范体", "责任链", "不口语散文化"],
+      "input": "第三条 经营主体发现冷藏柜温度连续超出设定范围的，应当立即停止相关柜格交付服务，封存柜内药品，并记录发现时间、设备编号、温度曲线和临时处置人员。无法排除质量风险的，不得重新上架销售。",
+      "assertions": {
+        "forbid_patterns": ["说白了", "简单来说", "大家要注意", "这背后体现的是"],
+        "preserve_keywords": ["第三条", "经营主体", "冷藏柜温度", "停止", "封存", "设备编号", "温度曲线", "不得重新上架"],
+        "min_char_ratio": 0.78,
+        "max_added_details": 0
+      }
+    },
+    {
+      "id": "S01",
+      "category": "boundary_short_speech",
+      "text_type": "speech",
+      "call_mode": "default_only",
+      "risk_tags": ["短演讲", "体裁保真", "不拔高"],
+      "input": "各位志愿者，今天这个小站先试运行两周。柜子里放的是雨衣、手电和简单药包，谁用了就在本子上记一笔。钥匙放在值班室，不要私配。有什么不方便，周五例会上直接说。",
+      "assertions": {
+        "forbid_patterns": ["今天不只是", "我想讲三点", "最后用一句话作结", "公共精神", "社区治理"],
+        "preserve_keywords": ["各位志愿者", "试运行两周", "雨衣", "手电", "简单药包", "值班室", "周五例会"],
+        "min_char_ratio": 0.65,
+        "max_added_details": 0
+      }
+    },
+    {
+      "id": "C01",
+      "category": "default_contract",
+      "groups": ["core_smoke"],
+      "text_type": "article",
+      "call_mode": "default_only",
+      "risk_tags": ["默认输出", "不前置过程", "最终成稿优先"],
+      "input": "很多团队把流程图画得越来越细，可真正出事的时候，大家还是先看谁肯在群里开口担责任。",
+      "assertions": {
+        "forbid_patterns": ["执行回执", "简短诊断", "manifest", "审计"],
+        "preserve_keywords": ["流程图", "出事", "担责任"],
+        "max_added_details": 1
+      }
+    },
+    {
+      "id": "C02",
+      "category": "control_validation",
+      "groups": ["core_smoke"],
+      "text_type": "article",
+      "call_mode": "validation_receipt",
+      "risk_tags": ["验证场景例外口", "最短回执", "场景化强度"],
+      "input": "很多团队把流程图画得越来越细，可真正出事的时候，大家还是先看谁肯在群里开口担责任。",
+      "assertions": {
+        "require_patterns": ["执行回执", "改写强度", "输出模式", "最终成稿"],
+        "require_any_patterns": ["偏强", "场景化强度", "场景映射"],
+        "forbid_patterns": ["简短诊断", "manifest", "分层审计结果"],
+        "preserve_keywords": ["流程图", "出事", "担责任"],
+        "min_nonempty_lines": 3
+      }
+    },
+    {
+      "id": "K01",
+      "category": "preserve",
+      "text_type": "fiction",
+      "call_mode": "use_preferred_output_mode",
+      "risk_tags": ["保留型对比句", "辨异句豁免"],
+      "preferred_output_mode": "句级标注",
+      "input": "不是灯次。是灯主。",
+      "assertions": {
+        "must_preserve_patterns": ["不是灯次", "是灯主"],
+        "forbid_patterns": ["换句话说", "也就是说"],
+        "max_added_details": 0
+      }
+    },
+    {
+      "id": "K02",
+      "category": "preserve",
+      "text_type": "technical",
+      "call_mode": "use_preferred_output_mode",
+      "risk_tags": ["必要术语句"],
+      "preferred_output_mode": "句级标注",
+      "input": "玄乌寒铁的链子吃火不吃水，普通铁匠补不上，得找懂旧炉脉的人来接。",
+      "assertions": {
+        "must_preserve_patterns": ["玄乌寒铁", "旧炉脉"],
+        "forbid_patterns": ["某种特殊材料", "老办法"],
+        "max_added_details": 0
+      }
+    },
+    {
+      "id": "B01",
+      "category": "batch",
+      "text_type": "mixed",
+      "call_mode": "use_preferred_output_mode",
+      "risk_tags": ["批量重复检查", "模板复制"],
+      "preferred_output_mode": "局部替代改写",
+      "input_batch": [
+        "问题不在于路径本身，而在于前后一直没有真正收口。",
+        "人最难的是开始，不是继续。",
+        "如果给这段过程补一句最贴切的话，那就是一切都在慢慢失控。",
+        "她说自己没事，让我回去睡，我知道她是嫌麻烦。",
+        "更重要的是，这并不是说效率没有价值，而是我们不能把所有表达都训练成汇报。"
+      ],
+      "assertions": {
+        "batch_forbid_patterns": ["倒不是", "前面绕了一圈", "写到这里", "先没说话"],
+        "require_diverse_openings": true,
+        "require_diverse_closings": true
+      }
+    },
+    {
+      "id": "B02",
+      "category": "batch",
+      "text_type": "mixed",
+      "call_mode": "use_preferred_output_mode",
+      "risk_tags": ["停手边界", "不要统一句法", "不要同一种救火模板"],
+      "preferred_output_mode": "局部替代改写",
+      "input_batch": [
+        "店里账没乱，乱的是每次一出事，大家就默认谁嗓门大谁来定说法。",
+        "雨停了以后，巷子里那股潮气还没散，墙根一排旧纸箱慢慢鼓起来，像一夜之间都学会了喘气。",
+        "这套灰度发布本身没错，问题是回滚阈值写得太像汇报材料，真出抖动时谁也不敢先按。",
+        "他把门闩抬起来，木头里先是一声涩响，随后整条院子都静了一下，像有谁在黑里侧过脸来。"
+      ],
+      "assertions": {
+        "batch_forbid_patterns": ["换句话说", "真正", "某种意义上", "写到这里"],
+        "require_diverse_openings": true,
+        "require_diverse_closings": true
+      }
+    }
+  ]
+}

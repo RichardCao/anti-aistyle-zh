@@ -10,6 +10,7 @@
 - 普通长文骨架查第 1-5 节。
 - 演讲、公文、政策分析、诗歌、法规说明、公告、访谈等强体裁查第 6-7 节。
 - 改后复核只查第 8 节，不要整包加载。
+- 执行时先走 `姿态 / 骨架 / 节奏 / 词簇 / 体裁 / 事实` 六个 pass；长文尾部回潮、压缩和体裁漂移必须在 pass 后复核。
 - 小说章节转到 [novel_longform_rules.md](./novel_longform_rules.md)。
 - 提纲和卷表转到 [plot_outline_rules.md](./plot_outline_rules.md)。
 

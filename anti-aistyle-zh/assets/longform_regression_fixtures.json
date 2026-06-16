@@ -1,0 +1,348 @@
+{
+  "version": "2026-04-22",
+  "suite_name": "anti-aistyle-zh-longform-regression",
+  "default_call_policy": {
+    "only_required_input": "target_text",
+    "optional_controls": [
+      "voice_sample",
+      "rewrite_intensity",
+      "target_reading_feel",
+      "output_mode"
+    ]
+  },
+  "cases": [
+    {
+      "id": "L01",
+      "category": "longform_methods",
+      "groups": ["core_smoke"],
+      "text_type": "article",
+      "call_mode": "use_preferred_output_mode",
+      "risk_tags": ["方法文", "成熟教练人格", "判断-解释-例子-收束"],
+      "preferred_output_mode": "局部替代改写",
+      "input": "这也是为什么，很多人明明读了不少方法论的书，听了不少经验分享，到了真正开工的时候，还是会手忙脚乱。不是因为这些方法全都没用，而是因为方法一旦离开具体场景，往往显得过于轻巧；可真实工作从来不轻巧。换句话说，方法如果不能变成手艺，就经常只是好看的说明书。",
+      "assertions": {
+        "remove_patterns": ["这也是为什么", "换句话说", "不是因为", "而是因为"],
+        "forbid_patterns": ["归根结底", "关键在于"],
+        "preserve_keywords": ["方法", "开工", "具体场景", "手艺"],
+        "max_added_details": 1
+      }
+    },
+    {
+      "id": "L02",
+      "category": "longform_commentary",
+      "groups": ["core_smoke"],
+      "text_type": "article",
+      "call_mode": "use_preferred_output_mode",
+      "risk_tags": ["评论文", "稳定评论员人格", "段尾裁判"],
+      "preferred_output_mode": "局部替代改写",
+      "input": "说到底，城市生活的质量，从来不是由最耀眼的那部分决定，而是由最普通的那部分决定。不是地标决定生活，而是回家的路；不是新开业的综合体决定生活，而是楼下还能不能买到一把香菜。真正成熟的城市，不是没有高楼和效率，而是它在高楼与效率之外，仍然保留了让普通生活得以展开的柔软地带。",
+      "assertions": {
+        "remove_patterns": ["说到底", "不是地标决定生活", "真正成熟的城市"],
+        "forbid_patterns": ["归根到底", "更重要的是"],
+        "preserve_keywords": ["城市生活", "回家的路", "香菜", "普通生活"],
+        "max_added_details": 1
+      }
+    },
+    {
+      "id": "L03",
+      "category": "longform_memoir",
+      "text_type": "narrative",
+      "call_mode": "use_preferred_output_mode",
+      "risk_tags": ["回忆非虚构", "返乡模板", "回望式领悟"],
+      "preferred_output_mode": "局部替代改写",
+      "input": "我也终于明白，为什么这些年我总不愿意写故乡。不是因为它不值得写，而是因为真正重要的东西，下笔之前总会让人害怕。某种意义上，故乡也是这样存在的。它不靠宏大的记忆维系，而是靠那些重复到近乎陈旧的句子。",
+      "assertions": {
+        "remove_patterns": ["我也终于明白", "不是因为", "真正重要的东西", "某种意义上"],
+        "forbid_patterns": ["很多年后再看", "说到底"],
+        "preserve_keywords": ["故乡", "下笔", "害怕", "句子"],
+        "max_added_details": 1
+      }
+    },
+    {
+      "id": "L04",
+      "category": "longform_profile",
+      "groups": ["core_smoke"],
+      "text_type": "narrative",
+      "call_mode": "use_preferred_output_mode",
+      "risk_tags": ["人物特写", "纪实非虚构", "借人物整理答案"],
+      "preferred_output_mode": "局部替代改写",
+      "input": "一位照护员说，帮失能老人洗澡，不只是把身体弄干净，更像是在把“只能将就”的感觉擦掉。旁边的人觉得这话有点重，但意思并不差。人在身体还硬朗的时候，体面像空气；到了失能阶段，体面要靠许多人一起维持。有人掀被子，有人接水，有人扶腰，有人把门带上，不让风进来，也不让羞耻无遮无挡地暴露出来。体面不再像一种天然状态，而更像一组被小心接住的动作。",
+      "assertions": {
+        "remove_patterns": ["帮失能老人洗澡", "体面不再像一种天然状态", "一组被小心接住的动作"],
+        "forbid_patterns": ["这说明", "某种尊严"],
+        "preserve_keywords": ["掀被子", "接水", "扶腰", "把门带上"],
+        "max_added_details": 0
+      }
+    },
+    {
+      "id": "L05",
+      "category": "longform_commentary",
+      "groups": ["core_smoke"],
+      "text_type": "article",
+      "call_mode": "use_preferred_output_mode",
+      "risk_tags": ["评论文", "安全限定回潮", "护栏句回潮"],
+      "preferred_output_mode": "局部替代改写",
+      "input": "很多人离开高压岗位，并不是突然厌倦了努力，而是终于承认自己没法长期把生活拆成可牺牲和不可牺牲的两半。工作当然重要，收入也重要，但一个人如果每天都要靠透支睡眠、胃口和耐心来维持体面，那份体面本身就已经出了问题。",
+      "assertions": {
+        "remove_patterns": ["并不是突然厌倦了努力"],
+        "forbid_patterns": ["当然，这并不是说", "不能简单地", "也不意味着", "更重要的是"],
+        "preserve_keywords": ["高压岗位", "生活", "体面", "睡眠"],
+        "max_added_details": 1,
+        "nonincreasing_patterns": ["当然"]
+      }
+    },
+    {
+      "id": "L06",
+      "category": "longform_methods",
+      "groups": ["core_smoke"],
+      "text_type": "article",
+      "call_mode": "use_preferred_output_mode",
+      "risk_tags": ["方法文", "正式转场回潮", "领路腔回潮"],
+      "preferred_output_mode": "局部替代改写",
+      "input": "创业早期最容易出现的问题，不是事情没人做，而是任何一件事一旦卡住，最后都会回到创始人身上。表面看这是责任心强，实际更像系统没有长出接力的位置。问题拖得越久，团队越会默认：只要复杂一点，还是等创始人来定。",
+      "assertions": {
+        "remove_patterns": ["表面看这是责任心强"],
+        "forbid_patterns": ["与此同时", "在这个基础上", "更重要的是", "进一步来看", "还有一个关键"],
+        "preserve_keywords": ["创始人", "团队", "系统", "接力"],
+        "max_added_details": 1,
+        "nonincreasing_patterns": ["当然"]
+      }
+    },
+    {
+      "id": "L07",
+      "category": "longform_commentary",
+      "groups": ["core_smoke"],
+      "text_type": "article",
+      "call_mode": "default_only",
+      "risk_tags": ["评论文", "最终成稿", "压缩回潮", "护栏句回潮", "领路腔回潮"],
+      "input": "这几年，很多人嘴上还在说想进大平台，身体却已经先开始退。白天会开不完，晚上消息回不完，周末的计划总被临时拉走，假期也不算真放。最让人难受的，往往不是某一次加班，而是你慢慢发现，工作把所有时间都切成了待命状态。饭吃到一半也要看手机，和朋友说话说到一半也会分神，回到家以后心还吊在群消息上。久了以后，一个人不是忙，而是没有边界。很多岗位表面上给的是体面、履历和收入，实际上要的是持续可用。谁越能扛，谁越容易被默认再多扛一点。问题就出在这里。人不是机器，生活也不是为了给工作腾地方。可不少组织真正在奖励的，恰好就是那种愿意把生活一点点让出去的人。有人后来接受工资低一些的工作，并不是突然不在乎钱了，而是发现继续待在原来的位置，钱会越来越像一种补偿款。它补加班，补失眠，补脾气变坏，补关系变薄，补身体一点点垮下去。账重新算过以后，很多人宁可少赚一点，也想把日子先过回人样。",
+      "assertions": {
+        "remove_patterns": ["问题就出在这里", "并不是突然不在乎钱了"],
+        "forbid_patterns": ["当然，这并不是说", "不能简单地", "也不意味着", "更重要的是", "在这个基础上", "进一步来看"],
+        "preserve_keywords": ["大平台", "待命状态", "体面", "工资", "失眠", "关系"],
+        "min_char_ratio": 0.8,
+        "nonincreasing_patterns": ["当然", "说到底", "更麻烦的是", "与此同时", "首先", "其次"],
+        "nonincreasing_pattern_groups": [
+          {
+            "label": "filler_tokens",
+            "patterns": ["其实", "已经", "仍然", "于是", "同时", "进一步"]
+          }
+        ],
+        "max_total_pattern_groups": [
+          {
+            "label": "negation_frames",
+            "patterns": ["问题不在", "而在", "不只是", "不是没有", "并不是"],
+            "max_total": 3
+          }
+        ],
+        "sentence_prefix_repeat": {
+          "prefix_len": 4,
+          "max_repeat": 2
+        }
+      }
+    },
+    {
+      "id": "L08",
+      "category": "longform_profile",
+      "groups": ["core_smoke"],
+      "text_type": "narrative",
+      "call_mode": "default_only",
+      "risk_tags": ["人物特写", "最终成稿", "压缩回潮", "借人物整理答案"],
+      "input": "医院附近那条小街，清早总是先被轮椅声和热水汽弄醒。临时租住的屋子不大，床边挤着轮椅、脸盆、热水壶和一筐药。墙上贴着每天训练的时间，床底塞着尿垫和没用完的一次性手套。家里人记不住医生嘴里的那些书面词，却记得哪条腿练完更容易抽筋，哪种药吃完更容易犯困。有人本来在外地上班，家里出了急病以后请假回来，后来干脆把工作先停下。白天推着人去做训练，回来做饭、洗衣、量血压，夜里还得防着他起身摔倒。最难熬的时候，不是花钱，也不是累，而是病人自己那股不自在。夜里尿湿了褥子，他把被子往脸上一拉，第二天训练时怎么都不肯往前迈。可日子也不是只剩难受。有一次，他终于在扶栏之间慢慢挪出去几步，屋里没人说什么大话，中午只是多添了一样热菜。后来可以回家继续练了。临走那天，家里人把墙上那张写满训练时间的纸轻轻揭下来，对折，放进包里。",
+      "assertions": {
+        "remove_patterns": ["最难熬的时候，不是花钱，也不是累", "后来可以回家继续练了"],
+        "forbid_patterns": ["说到底", "某种尊严", "真正说明了", "这也是为什么"],
+        "preserve_keywords": ["轮椅", "热水壶", "药", "抽筋", "训练", "尿垫", "热菜", "训练时间"],
+        "min_char_ratio": 0.78,
+        "nonincreasing_patterns": ["当然", "说到底", "更重要的是", "与此同时"]
+      }
+    },
+    {
+      "id": "L09",
+      "category": "longform_methods",
+      "groups": ["core_smoke"],
+      "text_type": "article",
+      "call_mode": "default_only",
+      "risk_tags": ["方法文", "最终成稿", "让步起手回潮", "成熟顾问腔", "压缩回潮"],
+      "input": "小团队一说执行，最容易先把问题怪到人头上：是不是不够主动，是不是谁在拖后腿，是不是老板盯得还不够细。可很多执行问题并不出在态度，而是出在系统。目标没有拆到动作，责任边界没有画清，项目节奏没有固定，问题也没有提前暴露的通道。结果就是，事情总得靠几个最能扛的人临时兜住。短时间看，这种硬顶也能把项目做完；时间一长，团队只会越来越依赖少数人，普通成员越来越不知道自己什么时候该接、按什么标准接、出了偏差又该往哪里报。",
+      "assertions": {
+        "remove_patterns": ["可很多执行问题并不出在态度", "短时间看，这种硬顶也能把项目做完"],
+        "forbid_patterns": ["更重要的是", "进一步来看", "在这个基础上", "与此同时"],
+        "preserve_keywords": ["执行", "系统", "目标", "动作", "责任边界", "项目节奏", "普通成员"],
+        "min_char_ratio": 0.8,
+        "nonincreasing_patterns": ["当然", "首先", "其次", "说到底"],
+        "nonincreasing_pattern_groups": [
+          {
+            "label": "filler_tokens",
+            "patterns": ["其实", "已经", "仍然", "于是", "同时", "进一步"]
+          }
+        ],
+        "sentence_prefix_repeat": {
+          "prefix_len": 4,
+          "max_repeat": 2
+        }
+      }
+    },
+    {
+      "id": "L10",
+      "category": "longform_speech",
+      "groups": ["boundary_regression"],
+      "text_type": "speech",
+      "call_mode": "default_only",
+      "risk_tags": ["演讲", "体裁保真", "压缩回潮", "成熟评论稿回潮"],
+      "input": "各位同事，今天我不想把这次调整讲成一份漂亮的成绩单。过去几个月，我们确实把一些节点拉回来了，交付速度也稳住了，但现场的人都知道，这里面有太多是靠临时加班、跨组补位和负责人反复兜底顶出来的。数字看上去能交代，人的状态却没有跟着好起来。有人会议一个接一个，晚上十点还在改方案；有人白天撑着流程，夜里再去补白天没来得及回的消息；也有人表面没出错，实际上已经开始靠透支睡眠和耐心维持稳定。今天把这件事拿出来讲，不是为了否认大家的努力，而是想把话说得更直接一点：如果一个团队每次都要靠少数人硬扛才能过关，那不是执行力强，而是系统没有把压力分开。我们接下来要改的，不只是几个表格、几个流程节点，而是让问题早点暴露、让责任早点接住、让现场的人不用每次都靠意志力把事情拎过去。",
+      "assertions": {
+        "forbid_patterns": ["归根到底", "更重要的是", "从更深层次看", "当然，这并不是说"],
+        "preserve_keywords": ["各位同事", "调整", "交付", "临时加班", "跨组补位", "负责人", "现场", "系统"],
+        "min_char_ratio": 0.8,
+        "nonincreasing_patterns": ["当然", "首先", "其次", "最后"],
+        "min_punctuation_kinds": 2,
+        "sentence_prefix_repeat": {
+          "prefix_len": 4,
+          "max_repeat": 2
+        }
+      }
+    },
+    {
+      "id": "L11",
+      "category": "longform_policy",
+      "groups": ["boundary_regression"],
+      "text_type": "article",
+      "call_mode": "default_only",
+      "risk_tags": ["政策分析", "压缩回潮", "成熟顾问腔", "标准答案化"],
+      "input": "讨论家庭长期安排，最容易滑向两种省事结论：一种把问题全压成成本太高，一种又把问题全推给观念变化。两种说法都抓到了一点现实，却都把真正起作用的约束削得太薄。一个家庭不是在抽象地回答“愿不愿意往前走一步”，而是在回答：工作稳不稳，住处撑不撑得住，家里能不能腾出照料人手，下一阶段的生活安排有没有地方落脚，收入波动能不能扛住。这些问题连在一起，选择就不再是单纯偏好，而是一套关于风险、空间和时间安排的现实判断。如果分析只把它写成单一成本问题，或者只把它写成一句长期趋势，那些最关键的摩擦反而会被抹掉：不同家庭面对制度门槛时有多少腾挪空间，不同地区之间的公共服务差距会不会把生活安排继续往后推。",
+      "assertions": {
+        "forbid_patterns": ["归根结底", "更重要的是", "在这个基础上", "进一步来看", "当然，这并不是说"],
+        "preserve_keywords": ["家庭", "风险", "空间", "时间安排", "制度门槛", "公共服务", "生活安排"],
+        "min_char_ratio": 0.8,
+        "nonincreasing_patterns": ["当然", "首先", "其次", "最后"]
+      }
+    },
+    {
+      "id": "L12",
+      "category": "longform_poetry",
+      "groups": ["boundary_regression"],
+      "text_type": "poetry",
+      "call_mode": "default_only",
+      "risk_tags": ["诗歌", "组诗", "压缩回潮", "释义化"],
+      "input": "夜里十二点以后，\\n工位上的灯还亮着。\\n不是谁在热爱，\\n是系统把困意往后拖。\\n\\n有人把外卖盒压在键盘旁边，\\n油点落在表格的边上；\\n有人去茶水间接水，\\n回来时顺手把一句抱怨咽了。\\n\\n窗外没有风景，\\n只有另一栋楼的窗也亮着，\\n像有人在更远的地方\\n替你继续醒着。\\n\\n到凌晨两点，\\n消息终于慢下来。\\n没有人说胜利，\\n只有椅背轻轻弹回去，\\n像一口没敢完全吐出的气。",
+      "assertions": {
+        "forbid_patterns": ["这说明", "某种意义上", "归根到底", "换句话说"],
+        "preserve_keywords": ["夜里", "工位", "灯", "外卖盒", "键盘", "茶水间", "窗", "凌晨两点", "椅背"],
+        "min_char_ratio": 0.7,
+        "nonincreasing_patterns": ["当然", "首先", "其次", "最后"]
+      }
+    },
+    {
+      "id": "L13",
+      "category": "longform_policy_mixed",
+      "groups": ["boundary_regression"],
+      "text_type": "article",
+      "call_mode": "default_only",
+      "risk_tags": ["政策评论混合体", "压缩回潮", "成熟解释腔", "场景压平"],
+      "input": "很多家庭做去留决定，表面上像在换一份工作，实际上是在重排整套生活秩序。收入当然重要，但下一阶段住在哪里，家里人临时出事能不能在附近接住，原本依赖的日常支持会不会突然断掉，夫妻里谁一旦失去收入还能不能把日子撑住，这些问题才会真正压到最后的决定上。资源配置、公共服务分布和家庭选择本来就是连在一起的。条件宽的时候，这些问题容易被增长掩过去；条件一紧，差别立刻就会被摸到。一个地方外观看着更新，不等于日常高频的事更容易被接住。家庭判断一个地方能不能留下，不是看宣传词，而是看这些高频、刚需、不能临时替代的事，能不能在未来几年里持续接住自己。",
+      "assertions": {
+        "forbid_patterns": ["当然，这并不是说", "也不能简单地", "归根到底", "更重要的是"],
+        "preserve_keywords": ["收入", "住在哪里", "日常支持", "失去收入", "资源配置", "公共服务", "家庭"],
+        "min_char_ratio": 0.8,
+        "nonincreasing_patterns": ["当然", "首先", "其次", "最后"],
+        "nonincreasing_pattern_groups": [
+          {
+            "label": "filler_tokens",
+            "patterns": ["其实", "已经", "仍然", "于是", "同时", "进一步"]
+          }
+        ],
+        "max_total_pattern_groups": [
+          {
+            "label": "negation_frames",
+            "patterns": ["问题不在", "而在", "不只是", "不是没有", "并不是"],
+            "max_total": 2
+          }
+        ],
+        "sentence_prefix_repeat": {
+          "prefix_len": 4,
+          "max_repeat": 2
+        }
+      }
+    },
+    {
+      "id": "L14",
+      "category": "longform_policy_mixed",
+      "groups": ["boundary_regression"],
+      "text_type": "article",
+      "call_mode": "default_only",
+      "risk_tags": ["照料链", "政策评论混合体", "让步腔回潮", "压缩回潮"],
+      "input": "对很多中青年家庭来说，住在哪里已经不只是资产和通勤问题。孩子谁来接送，家里年长成员频繁复诊怎么办，周末要不要在两地之间来回跑，临时照料有没有地方落脚，这些事一起压上来以后，居住选择更像是在搭一张照料网络。问题不是谁突然不愿意承担责任，而是工作机会、医疗安排、照护资源和家庭分工本来就分散在不同地方。一个夜里的突发状况，后面连着的是请假、赶路、陪护、接送和重新分工。只要其中一个环节晚半天，整条链都会跟着乱。",
+      "assertions": {
+        "forbid_patterns": ["当然，这并不是说", "也不能简单地", "说到底", "更重要的是"],
+        "preserve_keywords": ["孩子", "复诊", "照料网络", "请假", "赶路", "陪护", "重新分工", "家庭分工"],
+        "min_char_ratio": 0.8,
+        "nonincreasing_patterns": ["当然", "首先", "其次", "最后"]
+      }
+    },
+    {
+      "id": "L15",
+      "category": "longform_profile",
+      "groups": ["boundary_regression"],
+      "text_type": "narrative",
+      "call_mode": "default_only",
+      "risk_tags": ["引语同腔", "对象感", "标点异质性", "对白保真"],
+      "input": "夜里查房快结束时，老人忽然抓住床栏，说：“别把灯全关了。”女儿站在旁边，小声接了一句：“她怕一黑就分不清这是医院还是家里。”护士没接那层意思，只把床头那盏小灯留下，转身又去看下一床的点滴。走廊里还有轮子压过地面的声音，门口的塑料帘被人掀起又放下。没人把这句话解释成别的东西，可屋里的人都慢了一拍。",
+      "assertions": {
+        "forbid_patterns": ["换句话说", "某种意义上", "这说明"],
+        "preserve_keywords": ["床栏", "灯", "女儿", "护士", "点滴", "塑料帘"],
+        "must_preserve_patterns": ["“", "”"],
+        "min_char_ratio": 0.82,
+        "min_punctuation_kinds": 3,
+        "sentence_prefix_repeat": {
+          "prefix_len": 4,
+          "max_repeat": 2
+        }
+      }
+    },
+    {
+      "id": "L16",
+      "category": "longform_unknown_interview",
+      "groups": ["boundary_regression", "coverage_gap"],
+      "text_type": "interview",
+      "call_mode": "default_only",
+      "risk_tags": ["访谈实录", "未知题材", "保对象感", "不要洗成评论文"],
+      "input": "问：你当时为什么没马上走？答：我也说不清，门口那会儿还在下雨，鞋已经湿了。问：后来是谁先开的口？答：不是谁先开口，是他把伞往我这边挪了一点。我就知道今天这事可能还得谈。问：你现在回头看，会觉得那一刻很关键吗？答：别说关键不关键了，当时就想着裤脚别再贴腿上。",
+      "assertions": {
+        "must_preserve_patterns": ["问：", "答："],
+        "forbid_patterns": ["这说明", "回到核心问题", "从访谈可以看到", "真正关键的是"],
+        "preserve_keywords": ["下雨", "鞋", "伞", "裤脚"],
+        "min_char_ratio": 0.78,
+        "max_total_pattern_groups": [
+          {
+            "label": "commentary_wash",
+            "patterns": ["这说明", "可以看到", "关键", "本质", "意义"],
+            "max_total": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "L17",
+      "category": "longform_academic_abstract",
+      "groups": ["boundary_regression", "coverage_gap"],
+      "text_type": "academic_abstract",
+      "call_mode": "default_only",
+      "risk_tags": ["学术摘要", "未知题材", "事实保真", "保守边界"],
+      "input": "本文基于三个城市的社区访谈材料，讨论老旧小区加装电梯后邻里协商机制的变化。研究发现，费用分摊、低层住户补偿和后期维护责任是争议最集中的三类问题。本文不讨论普遍推广路径，只记录样本中出现的协商顺序和反复失败的节点。",
+      "assertions": {
+        "forbid_patterns": ["填补了研究空白", "具有重要理论意义", "为政策制定提供了全新路径", "真正的核心在于"],
+        "preserve_keywords": ["三个城市", "社区访谈", "费用分摊", "低层住户补偿", "后期维护责任", "不讨论普遍推广路径"],
+        "min_char_ratio": 0.82,
+        "max_added_details": 0,
+        "max_total_pattern_groups": [
+          {
+            "label": "academic_hype",
+            "patterns": ["重要意义", "研究空白", "全新路径", "核心", "本质"],
+            "max_total": 0
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,134 @@
+{
+  "version": "2026-04-23",
+  "suite_name": "anti-aistyle-zh-focused-regression",
+  "default_call_policy": {
+    "only_required_input": "target_text",
+    "optional_controls": [
+      "voice_sample",
+      "rewrite_intensity",
+      "target_reading_feel",
+      "output_mode"
+    ]
+  },
+  "cases": [
+    {
+      "id": "F01",
+      "category": "focused_fiction_relic_scene",
+      "groups": ["focused_residuals", "c1_residual"],
+      "text_type": "fiction",
+      "call_mode": "default_only",
+      "risk_tags": ["遗物触发", "短 scene", "人物通性回补", "意义尾句回潮"],
+      "input": "她把柜子里那件旧外套抱出来，又拆开红绳布包。里面是一把黄铜钥匙和一张便签，字抖得厉害：厨房窗台下面，别让你舅知道。她盯着那两行字，鼻子一下发酸。这确实像母亲会做的事，嘴上从来不说，重要的东西总藏在这些琐碎地方。她知道自己回家以后还得把窗台下面翻出来，可门一合上，她还是忍不住想，母亲没说完的话，大概都留在这把钥匙里了。",
+      "assertions": {
+        "remove_patterns": ["这确实像母亲会做的事", "重要的东西总藏在", "没说完的话", "都留在这把钥匙里"],
+        "forbid_patterns": ["这确实像她", "她向来如此", "重要的东西", "没说完的话", "这意味着"],
+        "preserve_keywords": ["旧外套", "黄铜钥匙", "便签", "厨房窗台下面", "回家"],
+        "require_any_patterns": ["走廊", "呼叫铃", "滚轮", "柜门", "掌心", "回家"],
+        "max_added_details": 1,
+        "nonincreasing_patterns": ["她知道", "她向来", "这确实像", "没说完的话"],
+        "max_total_pattern_groups": [
+          {
+            "label": "relic_scene_meaning",
+            "patterns": ["像她", "像母亲", "向来", "重要的东西", "没说完的话", "这意味着"],
+            "max_total": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "F02",
+      "category": "focused_profile_service_worker",
+      "groups": ["focused_residuals", "b2_residual"],
+      "text_type": "narrative",
+      "call_mode": "default_only",
+      "risk_tags": ["服务劳动者人物稿", "整日跟拍模板", "稳妥认可壳"],
+      "input": "六点四十多，他从水站出来，先跑家属院，再去培训机构，中午回站核单，下午跑几户散单，傍晚收工前把车上的灰掸一遍。一路上他不多说话，只是一桶一桶往上送。熟客都知道，他这人靠得住，事情交到他手里，心里就稳了。要是问他累不累，他多半还是那句：累也得一桶一桶送。",
+      "assertions": {
+        "remove_patterns": ["靠得住", "心里就稳了", "要是问他累不累"],
+        "forbid_patterns": ["每天都是这个点", "到了中午", "傍晚收工前", "要是问他", "还是那句", "靠得住", "让人服气"],
+        "preserve_keywords": ["水站", "家属院", "培训机构", "一桶一桶送", "车上的灰"],
+        "require_any_patterns": ["一户", "门一开", "本子", "空桶", "楼梯", "路口"],
+        "max_added_details": 1,
+        "nonincreasing_patterns": ["清晨", "中午", "下午", "傍晚", "靠得住", "心里就稳", "还是那句"],
+        "max_total_pattern_groups": [
+          {
+            "label": "day_schedule_shell",
+            "patterns": ["清晨", "中午", "下午", "傍晚", "收工前"],
+            "max_total": 1
+          },
+          {
+            "label": "approval_shell",
+            "patterns": ["靠得住", "让人服气", "心里就稳", "还是那句"],
+            "max_total": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "F05",
+      "category": "focused_fiction_reunion_scene",
+      "groups": ["focused_residuals", "c1_residual"],
+      "text_type": "fiction",
+      "call_mode": "default_only",
+      "risk_tags": ["旧人重逢", "短 scene", "物件盖章", "成熟感伤页"],
+      "input": "药店门口的雨棚窄得很，她递过来一张纸巾，说你脸上有水。他接过去，没有擦，只攥在手里。两个人隔着一辆送药的电动车站着，谁也没问后来过得怎么样。她笑了一下，说自己还住在老地方。他点点头，把纸巾折好塞进口袋。多年以后他们终于明白，成年人能给彼此留下的，也不过是这样一小点没有说破的体面。",
+      "assertions": {
+        "remove_patterns": ["多年以后他们终于明白", "成年人能给彼此留下的", "没有说破的体面"],
+        "forbid_patterns": ["成年人终于", "彼此位置", "多年以后", "没有说破的体面", "像一枚印章"],
+        "preserve_keywords": ["药店门口", "纸巾", "送药的电动车", "老地方"],
+        "require_any_patterns": ["雨棚", "电动车", "没问", "口袋", "药店"],
+        "max_added_details": 1,
+        "max_total_pattern_groups": [
+          {
+            "label": "reunion_seal",
+            "patterns": ["成年人", "多年以后", "体面", "终于明白", "彼此位置", "盖章"],
+            "max_total": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "F03",
+      "category": "focused_outline_volume_group",
+      "groups": ["focused_residuals", "d4_residual"],
+      "text_type": "outline",
+      "call_mode": "default_only",
+      "risk_tags": ["卷群结构文件", "工作块感不足", "长段说明 prose"],
+      "input": "卷五到卷八真正要写的，是北岸计划如何从改造项目慢慢显出持续重编的本体。团队先顺着资料柜去向摸到总站外围，再通过批次代码册确认每个批次同时改空间、称呼和叙述口径。接着写仓道勘验，让同一辆配送车同时送门牌、广播卡带和标准文稿，坐实接口维护不是后勤而是分发中枢。后半卷再把争论压回队内，第零批次和当前批次两条线只能先押一头，最后露出“口径校正”四个字收尾。",
+      "assertions": {
+        "require_any_patterns": ["入口", "卡口", "分歧", "收法", "证据", "速记", "回填", "两头", "先押一头", "不要讲圆"],
+        "forbid_patterns": ["真正要写的", "坐实", "不是后勤而是", "最后露出", "收尾", "真正的本体"],
+        "min_nonempty_lines": 5,
+        "max_total_pattern_groups": [
+          {
+            "label": "rounded_volume_intro",
+            "patterns": ["真正要写的", "真正的本体", "坐实", "最后露出", "收尾"],
+            "max_total": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "F04",
+      "category": "focused_outline_key_chapter_group",
+      "groups": ["focused_residuals", "d4_residual"],
+      "text_type": "outline",
+      "call_mode": "default_only",
+      "risk_tags": ["关键章节群文件", "作者讲解手册回潮", "逐章解释壳"],
+      "input": "第51章到第54章这里别再走“主角讲明白一套机制，搭档出去验证”的旧路。真正重要的不是证明档案库会拼接历史，而是看见拼接材料已经送进社区展柜。第53章是卷心，要把四个人各自信过那套说法的地方摊开。第54章不要做阶段总结会，只要盯住下一期物料已经进场这一点就够。",
+      "assertions": {
+        "require_patterns": ["第51章", "第52章", "第53章", "第54章"],
+        "require_any_patterns": ["改法", "删掉", "换成", "先放", "不要补作者提示", "入口", "卡口", "后效", "证据"],
+        "forbid_patterns": ["这里别再走", "真正重要的不是", "卷心", "不要做阶段总结会"],
+        "min_nonempty_lines": 4,
+        "max_total_pattern_groups": [
+          {
+            "label": "author_explainer_shell",
+            "patterns": ["这里别再走", "真正重要的不是", "卷心", "不要做阶段总结会"],
+            "max_total": 0
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,10 +1,15 @@
 # 前后对照样例
 
 这些样例只展示方向，不是固定模板。
+更系统的回归统一放在 `assets/` 夹具里：
+
+- [../assets/regression_fixtures.json](../assets/regression_fixtures.json)
+- [../assets/longform_regression_fixtures.json](../assets/longform_regression_fixtures.json)
+- [../assets/outline_regression_fixtures.json](../assets/outline_regression_fixtures.json)
 
 ## 快速路由
 
-- 只有需要示例或人工比对时读本文件。
+- 只有需要示例、回归设计或人工比对时读本文件。
 - 通用短句去味查第 1-9 节。
 - 小说、情节功能和关系翻译样例查第 10-14 节。
 - 本文件只给方向，不作为输出模板。

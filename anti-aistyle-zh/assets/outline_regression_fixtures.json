@@ -1,0 +1,178 @@
+{
+  "version": "2026-04-21",
+  "suite_name": "anti-aistyle-zh-outline-regression",
+  "default_call_policy": {
+    "only_required_input": "target_text",
+    "optional_controls": [
+      "voice_sample",
+      "rewrite_intensity",
+      "target_reading_feel",
+      "output_mode"
+    ]
+  },
+  "cases": [
+    {
+      "id": "O01",
+      "category": "outline_hard_fail",
+      "groups": ["core_smoke"],
+      "text_type": "outline",
+      "call_mode": "default_only",
+      "risk_tags": ["卷功能过匀", "终局统一坡道", "必须直接改结构"],
+      "input": "全书 24 卷，每卷固定 12 章。卷 1 到卷 18 都按“到达新地 -> 发现旧物 -> 懂行人解释 -> 小胜一场 -> 卷尾钩下一卷”运行；卷 19 到卷 24 进入统一终局坡道，每卷都在升级、揭示真相、集结同伴，并以一件器物钉住卷尾。",
+      "assertions": {
+        "require_any_patterns": ["卷 19", "卷19", "后效", "误判", "余震", "改后"],
+        "forbid_patterns": ["只建议", "可考虑", "原则上可以"],
+        "min_nonempty_lines": 4
+      }
+    },
+    {
+      "id": "O01P",
+      "category": "outline_hard_fail_process",
+      "groups": ["process_smoke"],
+      "text_type": "outline",
+      "call_mode": "regression",
+      "risk_tags": ["卷功能过匀", "终局统一坡道", "过程断言"],
+      "input": "全书 24 卷，每卷固定 12 章。卷 1 到卷 18 都按“到达新地 -> 发现旧物 -> 懂行人解释 -> 小胜一场 -> 卷尾钩下一卷”运行；卷 19 到卷 24 进入统一终局坡道，每卷都在升级、揭示真相、集结同伴，并以一件器物钉住卷尾。",
+      "assertions": {
+        "process": {
+          "require_patterns": ["结构层 hard fail", "异构配额表", "主模板覆盖率"]
+        }
+      }
+    },
+    {
+      "id": "O02",
+      "category": "outline_execution_table",
+      "text_type": "outline",
+      "call_mode": "default_only",
+      "risk_tags": ["多轴执行表", "不要压扁成普通剧情表"],
+      "input": "卷执行表字段包括：器物、节奏、章回、文风、跨卷回响、静戏缓冲、小人物回环。当前排法是每卷平均分配一项器物亮点、一段静戏缓冲、一个小人物回环，同时都承担主角升级与暗线揭示。",
+      "assertions": {
+        "require_patterns": ["器物", "节奏", "章回", "文风", "跨卷回响", "静戏缓冲", "小人物回环"],
+        "require_any_patterns": ["保留哪些轴", "哪些轴该拆异"],
+        "forbid_patterns": ["压成普通剧情表", "只改剧情推进"],
+        "min_nonempty_lines": 3
+      }
+    },
+    {
+      "id": "O03",
+      "category": "outline_completion",
+      "text_type": "outline",
+      "call_mode": "default_only",
+      "risk_tags": ["完成阈值", "不能只停在诊断"],
+      "input": "提纲命中结构层 hard fail。改写后如果主模板覆盖率仍高于一半，卷长和章群长度仍基本全等，终局仍是一条统一坡道，该如何判断是否完成？",
+      "assertions": {
+        "require_any_patterns": ["不算完成", "继续重构", "不能算完成", "还没完成"],
+        "forbid_patterns": ["可以先这样", "先到这里"],
+        "min_nonempty_lines": 3
+      }
+    },
+    {
+      "id": "O03P",
+      "category": "outline_completion_process",
+      "groups": ["process_smoke"],
+      "text_type": "outline",
+      "call_mode": "regression",
+      "risk_tags": ["完成阈值", "过程断言"],
+      "input": "提纲命中结构层 hard fail。改写后如果主模板覆盖率仍高于一半，卷长和章群长度仍基本全等，终局仍是一条统一坡道，该如何判断是否完成？",
+      "assertions": {
+        "process": {
+          "require_patterns": ["主模板覆盖率", "不再超过 `50%`", "已落地 `异构配额表`", "至少打破 `3` 处", "终局整体不再是统一终局坡道"]
+        }
+      }
+    },
+    {
+      "id": "O04",
+      "category": "outline_chain",
+      "text_type": "outline",
+      "call_mode": "default_only",
+      "risk_tags": ["卷级链", "章节群链", "单章微链", "互换测试"],
+      "input": "一份 36 卷提纲只有总纲和章节摘要，没有正文。中段 14 卷都像“收到线索 -> 赶路 -> 遇敌 -> 旧物露底 -> 章尾留钩”。请直接处理，不要只给泛泛诊断。",
+      "assertions": {
+        "require_any_patterns": ["高风险重复区", "前段", "中段", "后段", "终局", "改后", "重排"],
+        "forbid_patterns": ["等正文再说", "只能先诊断"],
+        "min_nonempty_lines": 4
+      }
+    },
+    {
+      "id": "O04P",
+      "category": "outline_chain_process",
+      "groups": ["process_smoke"],
+      "text_type": "outline",
+      "call_mode": "regression",
+      "risk_tags": ["卷级链", "章节群链", "单章微链", "过程断言"],
+      "input": "一份 36 卷提纲只有总纲和章节摘要，没有正文。中段 14 卷都像“收到线索 -> 赶路 -> 遇敌 -> 旧物露底 -> 章尾留钩”。请直接处理，不要只给泛泛诊断。",
+      "assertions": {
+        "process": {
+          "require_patterns": ["卷级链", "章节群链", "单章微链", "互换测试", "同模章节群"]
+        }
+      }
+    },
+    {
+      "id": "O05",
+      "category": "outline_ops_shell",
+      "groups": ["core_smoke"],
+      "text_type": "outline",
+      "call_mode": "default_only",
+      "risk_tags": ["连载运营壳", "每50章一个高潮", "阶段反派排产", "必须先拆壳"],
+      "input": "这是一份 1000 章网文提纲。总纲前面先写：类型与卖点、节奏补充、每50章一个高潮、每100章一个大翻盘、热搜式名场面、阶段反派表。正文部分 20 卷，每卷固定 50 章，前中后段都按固定章数落主高潮、卷尾钩子和反派退场。请直接处理，不要保留这种运营口气。",
+      "assertions": {
+        "require_patterns": ["每50章一个高潮", "热搜式名场面", "阶段反派"],
+        "require_any_patterns": ["不等距高潮", "不等长卷群", "先拆壳", "重排", "改后"],
+        "forbid_patterns": ["保留原包装词", "只需润色", "先按原节奏保留"],
+        "min_nonempty_lines": 4
+      }
+    },
+    {
+      "id": "O06",
+      "category": "outline_density_collapse",
+      "groups": ["core_smoke"],
+      "text_type": "outline",
+      "call_mode": "default_only",
+      "risk_tags": ["前细后疏", "后半程只剩摘要包", "必须恢复后半程结构密度"],
+      "input": "这是一份 1000 章提纲。前 250 章基本按单章细写，251 到 500 章退成每 5 章一包，501 到 950 章退成每 10 章一包，终局再压成几段汇总。请直接处理，不要只说“后面再补细节”。",
+      "assertions": {
+        "require_patterns": ["前细后疏"],
+        "require_any_patterns": ["恢复后半程", "章节群", "scene 密度", "重排卷长", "改后"],
+        "forbid_patterns": ["后续再补", "细化即可", "先保持原分配"],
+        "min_nonempty_lines": 4
+      }
+    },
+    {
+      "id": "O07",
+      "category": "outline_nonfiction_boundary",
+      "groups": ["core_smoke"],
+      "text_type": "outline",
+      "call_mode": "default_only",
+      "risk_tags": ["非虚构提纲", "功能性结构字段", "不要误判成小说壳"],
+      "input": "这是一份专业综述提纲，包含：研究范围、概念界定、信源规则、事实与判断分写规则、项目状态体系、统一案例卡片模板。请去掉 AI 味，但不要把这些功能性结构字段一概当成剧情规划壳删掉。",
+      "assertions": {
+        "require_patterns": ["研究范围", "信源规则", "事实与判断", "项目状态", "案例卡片模板"],
+        "require_any_patterns": ["保留功能性结构", "不要误删", "不是剧情壳", "为正文服务"],
+        "forbid_patterns": ["结构层 hard fail", "异构配额表", "卷级链", "章节群链", "每50章一个高潮"],
+        "min_nonempty_lines": 3
+      }
+    },
+    {
+      "id": "O08",
+      "category": "outline_short_block_quota",
+      "groups": ["core_smoke", "coverage_gap"],
+      "text_type": "outline",
+      "call_mode": "default_only",
+      "risk_tags": ["短规划", "单块功能过匀", "不公平配额 pass"],
+      "input": "12 章短篇规划：第1-3章建立主角困境和世界规则，第4-6章推进搭档关系和第一条暗线，第7-9章升级反派压力并揭示旧物线索，第10-12章回收伏笔、完成成长、解决主线冲突。每三章都要同时推进人物、世界、关系和暗线。",
+      "assertions": {
+        "require_any_patterns": ["偏一边", "不平均推进", "空一块", "改后", "重排"],
+        "forbid_patterns": ["每三章都要同时推进", "完成成长、解决主线冲突", "同时推进人物、世界、关系和暗线"],
+        "preserve_keywords": ["12 章", "主角", "搭档", "旧物线索"],
+        "min_nonempty_lines": 4,
+        "max_total_pattern_groups": [
+          {
+            "label": "quota_shell",
+            "patterns": ["同时推进", "回收伏笔", "完成成长", "解决主线冲突"],
+            "max_total": 1
+          }
+        ]
+      }
+    }
+  ]
+}
